@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VYDO — India's Healthcare App</title>
+  <link rel="icon" href="logo.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #fff;
+      color: #1A237E;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ── Animated background particles ── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(67, 97, 238, 0.08);
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-100px) scale(1); opacity: 0; }
+    }
+
+    /* ── Main content ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+      text-align: center;
+      max-width: 560px;
+    }
+
+    /* ── Logo ── */
+    .logo-wrap {
+      animation: logoIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      opacity: 0;
+    }
+    @keyframes logoIn {
+      0%   { opacity: 0; transform: scale(0.3) rotate(-15deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    .logo-wrap img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+    }
+
+    /* ── Brand name ── */
+    .brand {
+      font-size: 72px;
+      font-weight: 900;
+      letter-spacing: 12px;
+      color: #1A237E;
+      margin-top: 16px;
+      animation: lettersIn 1.2s ease forwards;
+      opacity: 0;
+    }
+    @keyframes lettersIn {
+      0%   { opacity: 0; transform: translateY(30px); letter-spacing: 40px; }
+      100% { opacity: 1; transform: translateY(0);    letter-spacing: 12px; }
+    }
+
+    /* ── Underline ── */
+    .underline {
+      height: 4px;
+      background: linear-gradient(90deg, #2B3FC7, #4361EE);
+      border-radius: 2px;
+      margin-top: 8px;
+      animation: lineIn 0.8s 1.2s ease forwards;
+      width: 0;
+    }
+    @keyframes lineIn {
+      to { width: 240px; }
+    }
+
+    /* ── Tagline ── */
+    .tagline {
+      font-size: 15px;
+      color: #9CA3AF;
+      letter-spacing: 4px;
+      font-weight: 500;
+      margin-top: 12px;
+      text-transform: uppercase;
+      animation: fadeUp 0.8s 1.6s ease forwards;
+      opacity: 0;
+    }
+
+    /* ── Coming soon text ── */
+    .coming {
+      margin-top: 48px;
+      animation: fadeUp 0.8s 2s ease forwards;
+      opacity: 0;
+    }
+    .coming h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #1A237E;
+      line-height: 1.3;
+    }
+    .coming h2 span {
+      background: linear-gradient(135deg, #2B3FC7, #4361EE);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .coming p {
+      font-size: 16px;
+      color: #6B7280;
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* ── Features pills ── */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 32px;
+      animation: fadeUp 0.8s 2.4s ease forwards;
+      opacity: 0;
+    }
+    .pill {
+      background: #EEF0FF;
+      color: #2B3FC7;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1.5px solid #C5CAE9;
+    }
+
+    /* ── Notify form ── */
+    .notify {
+      margin-top: 36px;
+      width: 100%;
+      animation: fadeUp 0.8s 2.8s ease forwards;
+      opacity: 0;
+    }
+    .notify p {
+      font-size: 14px;
+      color: #9CA3AF;
+      margin-bottom: 12px;
+    }
+    .notify-form {
+      display: flex;
+      gap: 8px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .notify-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 1.5px solid #E0E4FF;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #1A1A2E;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .notify-form input:focus { border-color: #4361EE; }
+    .notify-form button {
+      padding: 14px 22px;
+      background: linear-gradient(135deg, #2B3FC7, #4361EE);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+    .notify-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(67,97,238,0.35);
+    }
+    .success-msg {
+      display: none;
+      color: #059669;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 48px;
+      font-size: 12px;
+      color: #D1D5DB;
+      animation: fadeUp 0.8s 3.2s ease forwards;
+      opacity: 0;
+    }
+    .footer a { color: #4361EE; text-decoration: none; }
+
+    @keyframes fadeUp {
+      0%   { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Pulse ring behind logo ── */
+    .pulse-ring {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 2px solid rgba(67,97,238,0.2);
+      animation: pulse 2s ease-out infinite;
+    }
+    .pulse-ring:nth-child(2) { animation-delay: 0.6s; }
+    .pulse-ring:nth-child(3) { animation-delay: 1.2s; }
+    @keyframes pulse {
+      0%   { transform: scale(0.8); opacity: 0.8; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .logo-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      height: 160px;
+    }
+
+    @media (max-width: 480px) {
+      .brand { font-size: 52px; letter-spacing: 8px; }
+      .coming h2 { font-size: 24px; }
+      .notify-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+
+    <!-- Logo with pulse rings -->
+    <div class="logo-container">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="logo-wrap">
+        <img src="logo.png" alt="VYDO Logo" />
+      </div>
+    </div>
+
+    <!-- Brand -->
+    <div class="brand">VYDO</div>
+    <div class="underline"></div>
+    <div class="tagline">India's Healthcare App</div>
+
+    <!-- Coming soon -->
+    <div class="coming">
+      <h2>We're <span>Coming Soon</span> 🚀</h2>
+      <p>
+        VYDO is building India's most trusted healthcare platform —
+        connecting patients with verified doctors for physical &amp; video consultations.
+        <br /><br />
+        <strong>Stay tuned. Something amazing is on the way.</strong>
+      </p>
+    </div>
+
+    <!-- Feature pills -->
+    <div class="features">
+      <span class="pill">🏥 Book Appointments</span>
+      <span class="pill">📹 Video Consultations</span>
+      <span class="pill">🚨 Emergency Care</span>
+      <span class="pill">🤖 AI Health Assistant</span>
+      <span class="pill">📍 Kurnool & Beyond</span>
+    </div>
+
+    <!-- Notify form -->
+    <div class="notify">
+      <p>Get notified when we launch</p>
+      <div class="notify-form">
+        <input type="email" id="emailInput" placeholder="Enter your email" />
+        <button onclick="handleNotify()">Notify Me</button>
+      </div>
+      <div class="success-msg" id="successMsg">✅ You're on the list! We'll notify you.</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      © 2026 VYDO · <a href="mailto:contact@vydo.in">contact@vydo.in</a> · vydo.in
+    </div>
+
+  </div>
+
+  <script>
+    // Generate particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 60 + 20;
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${Math.random() * 100}%;
+        animation-duration: ${Math.random() * 12 + 8}s;
+        animation-delay: ${Math.random() * 8}s;
+      `;
+      container.appendChild(p);
+    }
+
+    // Notify form
+    function handleNotify() {
+      const email = document.getElementById('emailInput').value;
+      if (!email || !email.includes('@')) {
+        document.getElementById('emailInput').style.borderColor = '#EF4444';
+        return;
+      }
+      document.querySelector('.notify-form').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

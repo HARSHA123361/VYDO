@@ -136,7 +136,7 @@
     /* ── Features pills ── */
     .features {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 10px;
       justify-content: center;
       margin-top: 32px;
@@ -151,6 +151,7 @@
       padding: 8px 16px;
       border-radius: 20px;
       border: 1.5px solid #C5CAE9;
+      white-space: nowrap;
     }
 
     /* ── Notify form ── */
@@ -258,7 +259,7 @@
       .coming { margin-top: 32px; }
       .coming h2 { font-size: 22px; }
       .coming p { font-size: 14px; }
-      .features { gap: 8px; margin-top: 24px; }
+      .features { gap: 8px; margin-top: 24px; flex-wrap: wrap; }
       .pill { font-size: 12px; padding: 7px 13px; }
       .notify { margin-top: 28px; }
       .notify-form { flex-direction: column; gap: 10px; }
@@ -326,7 +327,7 @@
 
     <!-- Footer -->
     <div class="footer">
-      © 2026 VYDO · <a href="mailto:contact@vydo.in">contact@vydo.in</a> · vydo.in
+      © 2026 VYDO · <a href="mailto:contact@vydo.in">contact@vydo.in</a>
     </div>
 
   </div>

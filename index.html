@@ -245,9 +245,30 @@
     }
 
     @media (max-width: 480px) {
-      .brand { font-size: 52px; letter-spacing: 8px; }
-      .coming h2 { font-size: 24px; }
-      .notify-form { flex-direction: column; }
+      body { justify-content: flex-start; padding-top: 20px; overflow-y: auto; }
+      .container { padding: 30px 20px; width: 100%; }
+      .logo-container { width: 120px; height: 120px; }
+      .logo-wrap img { width: 90px; height: 90px; }
+      .pulse-ring { width: 120px; height: 120px; }
+      .brand { font-size: 48px; letter-spacing: 8px; }
+      .underline { animation: lineInMobile 0.8s 1.2s ease forwards; }
+      @keyframes lineInMobile { to { width: 180px; } }
+      .tagline { font-size: 12px; letter-spacing: 3px; }
+      .coming { margin-top: 32px; }
+      .coming h2 { font-size: 22px; }
+      .coming p { font-size: 14px; }
+      .features { gap: 8px; margin-top: 24px; }
+      .pill { font-size: 12px; padding: 7px 13px; }
+      .notify { margin-top: 28px; }
+      .notify-form { flex-direction: column; gap: 10px; }
+      .notify-form input { width: 100%; }
+      .notify-form button { width: 100%; }
+      .footer { margin-top: 32px; margin-bottom: 20px; }
+    }
+
+    @media (max-width: 360px) {
+      .brand { font-size: 40px; letter-spacing: 6px; }
+      .coming h2 { font-size: 20px; }
     }
   </style>
 </head>
@@ -286,21 +307,21 @@
 
     <!-- Feature pills -->
     <div class="features">
-      <span class="pill">🏥 Book Appointments</span>
-      <span class="pill">📹 Video Consultations</span>
-      <span class="pill">🚨 Emergency Care</span>
-      <span class="pill">🤖 AI Health Assistant</span>
-      <span class="pill">📍 Kurnool & Beyond</span>
+      <span class="pill">Book Appointments</span>
+      <span class="pill">Video Consultations</span>
+      <span class="pill">Emergency Care</span>
+      <span class="pill">AI Health Assistant</span>
+      <span class="pill">Kurnool & Beyond</span>
     </div>
 
     <!-- Notify form -->
     <div class="notify">
       <p>Get notified when we launch</p>
-      <div class="notify-form">
-        <input type="email" id="emailInput" placeholder="Enter your email" />
-        <button onclick="handleNotify()">Notify Me</button>
-      </div>
-      <div class="success-msg" id="successMsg">✅ You're on the list! We'll notify you.</div>
+      <form class="notify-form" onsubmit="handleNotify(event)">
+        <input type="email" id="emailInput" placeholder="Enter your email" required />
+        <button type="submit">Notify Me</button>
+      </form>
+      <div class="success-msg" id="successMsg">You're on the list! We'll notify you at launch.</div>
     </div>
 
     <!-- Footer -->
@@ -327,15 +348,25 @@
       container.appendChild(p);
     }
 
-    // Notify form
-    function handleNotify() {
+    // Notify form — submits to Formspree
+    async function handleNotify(e) {
+      e.preventDefault();
       const email = document.getElementById('emailInput').value;
-      if (!email || !email.includes('@')) {
-        document.getElementById('emailInput').style.borderColor = '#EF4444';
-        return;
+      if (!email || !email.includes('@')) return;
+
+      try {
+        const res = await fetch('https://formspree.io/f/mzdkvjre', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        if (res.ok) {
+          document.querySelector('.notify-form').style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+        }
+      } catch (err) {
+        alert('Something went wrong. Please try again.');
       }
-      document.querySelector('.notify-form').style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
     }
   </script>
 

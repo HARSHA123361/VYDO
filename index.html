@@ -7,309 +7,141 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --blue: #1A56DB; --dark: #1A237E; --light: #EEF2FF; }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: #fff;
-      color: #1A237E;
+      color: var(--dark);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       overflow-x: hidden;
-      overflow-y: auto;
     }
 
-    /* ── Animated background particles ── */
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
+    /* Doctor Reg Button */
+    .doc-reg-btn { position: fixed; right: 16px; top: 16px; z-index: 100; animation: slideInTop 0.8s 2.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .doc-reg-btn a {
+      display: flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #1A237E, #1A56DB);
+      color: #fff; text-decoration: none; font-size: 12px; font-weight: 700;
+      padding: 10px 16px; border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(26,86,219,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(67, 97, 238, 0.08);
-      animation: float linear infinite;
+    .doc-reg-btn a:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,86,219,0.5); }
+    .doc-reg-pulse { width: 7px; height: 7px; background: #22C55E; border-radius: 50%; animation: dotPulse 1.5s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes slideInTop { 0% { opacity:0; transform:translateY(-30px); } 100% { opacity:1; transform:translateY(0); } }
+    @keyframes dotPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.6); opacity:0.6; } }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 80px 24px 48px; text-align: center; position: relative;
+      background: linear-gradient(160deg, #fff 0%, #EEF2FF 60%, #fff 100%);
+      overflow: hidden;
     }
 
-    @keyframes float {
-      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
-      10%  { opacity: 1; }
-      90%  { opacity: 1; }
-      100% { transform: translateY(-100px) scale(1); opacity: 0; }
-    }
+    /* Blobs */
+    .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.18; animation: blobMove 8s ease-in-out infinite alternate; }
+    .blob1 { width: 300px; height: 300px; background: #1A56DB; top: -80px; right: -80px; }
+    .blob2 { width: 200px; height: 200px; background: #4361EE; bottom: 40px; left: -60px; animation-delay: 2s; }
+    .blob3 { width: 150px; height: 150px; background: #06B6D4; top: 40%; right: -40px; animation-delay: 4s; }
+    @keyframes blobMove { 0% { transform:scale(1) translate(0,0); } 100% { transform:scale(1.15) translate(20px,20px); } }
 
-    /* ── Main content ── */
-    .container {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 24px 60px;
-      text-align: center;
-      max-width: 560px;
-      width: 100%;
-    }
-
-    /* ── Logo ── */
-    .logo-wrap {
-      animation: logoIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      opacity: 0;
-    }
-    @keyframes logoIn {
-      0%   { opacity: 0; transform: scale(0.3) rotate(-15deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
-    .logo-wrap img {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-      mix-blend-mode: multiply;
-    }
-
-    /* ── Brand name ── */
-    .brand {
-      font-size: 72px;
-      font-weight: 900;
-      letter-spacing: 12px;
-      color: #1A237E;
-      margin-top: 16px;
-      animation: lettersIn 1.2s ease forwards;
-      opacity: 0;
-    }
-    @keyframes lettersIn {
-      0%   { opacity: 0; transform: translateY(30px); letter-spacing: 40px; }
-      100% { opacity: 1; transform: translateY(0);    letter-spacing: 12px; }
-    }
-
-    /* ── Underline ── */
-    .underline {
-      height: 4px;
-      background: linear-gradient(90deg, #2B3FC7, #4361EE);
-      border-radius: 2px;
-      margin-top: 8px;
-      animation: lineIn 0.8s 1.2s ease forwards;
-      width: 0;
-    }
-    @keyframes lineIn {
-      to { width: 240px; }
-    }
-
-    /* ── Tagline ── */
-    .tagline {
-      font-size: 15px;
-      color: #9CA3AF;
-      letter-spacing: 4px;
-      font-weight: 500;
-      margin-top: 12px;
-      text-transform: uppercase;
-      animation: fadeUp 0.8s 1.6s ease forwards;
-      opacity: 0;
-    }
-
-    /* ── Coming soon text ── */
-    .coming {
-      margin-top: 48px;
-      animation: fadeUp 0.8s 2s ease forwards;
-      opacity: 0;
-    }
-    .coming h2 {
-      font-size: 32px;
-      font-weight: 800;
-      color: #1A237E;
-      line-height: 1.3;
-    }
-    .coming h2 span {
-      background: linear-gradient(135deg, #2B3FC7, #4361EE);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .coming p {
-      font-size: 16px;
-      color: #6B7280;
-      margin-top: 12px;
-      line-height: 1.7;
-    }
-
-    /* ── Features pills ── */
-    .features {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 32px;
-      animation: fadeUp 0.8s 2.4s ease forwards;
-      opacity: 0;
-    }
-    .pill {
-      background: #EEF0FF;
-      color: #2B3FC7;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 1.5px solid #C5CAE9;
-      white-space: nowrap;
-    }
-
-    /* ── Notify form ── */
-    .notify {
-      margin-top: 36px;
-      width: 100%;
-      animation: fadeUp 0.8s 2.8s ease forwards;
-      opacity: 0;
-    }
-    .notify p {
-      font-size: 14px;
-      color: #9CA3AF;
-      margin-bottom: 12px;
-    }
-    .notify-form {
-      display: flex;
-      gap: 8px;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-    .notify-form input {
-      flex: 1;
-      padding: 14px 18px;
-      border: 1.5px solid #E0E4FF;
-      border-radius: 12px;
-      font-size: 14px;
-      color: #1A1A2E;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .notify-form input:focus { border-color: #4361EE; }
-    .notify-form button {
-      padding: 14px 22px;
-      background: linear-gradient(135deg, #2B3FC7, #4361EE);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-      white-space: nowrap;
-    }
-    .notify-form button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(67,97,238,0.35);
-    }
-    .success-msg {
-      display: none;
-      color: #059669;
-      font-weight: 700;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    /* ── Footer ── */
-    .footer {
-      margin-top: 48px;
-      font-size: 12px;
-      color: #D1D5DB;
-      animation: fadeUp 0.8s 3.2s ease forwards;
-      opacity: 0;
-    }
-    .footer a { color: #4361EE; text-decoration: none; }
-
-    @keyframes fadeUp {
-      0%   { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── Pulse ring behind logo ── */
-    .pulse-ring {
-      position: absolute;
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 2px solid rgba(67,97,238,0.2);
-      animation: pulse 2s ease-out infinite;
-    }
-    .pulse-ring:nth-child(2) { animation-delay: 0.6s; }
-    .pulse-ring:nth-child(3) { animation-delay: 1.2s; }
-    @keyframes pulse {
-      0%   { transform: scale(0.8); opacity: 0.8; }
-      100% { transform: scale(2.2); opacity: 0; }
-    }
+    /* Logo */
     .logo-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 160px;
-      height: 160px;
+      position: relative; width: 160px; height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      animation: logoIn 1s cubic-bezier(0.34,1.56,0.64,1) forwards; opacity: 0;
     }
+    .pulse-ring {
+      position: absolute; width: 160px; height: 160px; border-radius: 50%;
+      border: 2px solid rgba(26,86,219,0.2); animation: pulse 2.5s ease-out infinite;
+    }
+    .pulse-ring:nth-child(2) { animation-delay: 0.8s; }
+    .pulse-ring:nth-child(3) { animation-delay: 1.6s; }
+    @keyframes pulse { 0% { transform:scale(0.9); opacity:0.8; } 100% { transform:scale(2.4); opacity:0; } }
+    .logo-container img {
+      width: 130px; height: 130px; object-fit: contain; position: relative; z-index: 1;
+    }
+    @keyframes logoIn { 0% { opacity:0; transform:scale(0.4) rotate(-20deg); } 100% { opacity:1; transform:scale(1) rotate(0); } }
+
+    /* Brand */
+    .brand { font-size: clamp(40px,10vw,60px); font-weight: 900; letter-spacing: clamp(8px,3vw,16px); color: #1A237E; animation: fadeUp 0.8s 0.8s ease forwards; opacity: 0; line-height: 1; }
+    .underline { height: 3px; background: linear-gradient(90deg, var(--blue), #4361EE); border-radius: 2px; margin: 10px auto 0; width: 0; animation: lineIn 0.8s 1.4s ease forwards; }
+    @keyframes lineIn { to { width: min(200px, 60vw); } }
+    .tagline { font-size: clamp(10px,3vw,13px); color: #9CA3AF; letter-spacing: clamp(2px,1vw,4px); font-weight: 600; margin-top: 10px; text-transform: uppercase; animation: fadeUp 0.8s 1.8s ease forwards; opacity: 0; }
+
+    /* Coming soon */
+    .coming { margin-top: 36px; animation: fadeUp 0.8s 2s ease forwards; opacity: 0; }
+    .coming h2 { font-size: clamp(22px,6vw,34px); font-weight: 800; line-height: 1.3; }
+    .coming h2 span { background: linear-gradient(135deg, var(--blue), #4361EE); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .coming p { font-size: clamp(13px,3.5vw,16px); color: #6B7280; margin-top: 12px; line-height: 1.7; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+    /* Pills */
+    .features { display: flex; flex-wrap: nowrap; gap: 6px; justify-content: center; margin-top: 20px; animation: fadeUp 0.8s 2.2s ease forwards; opacity: 0; width: 100%; overflow: hidden; }
+    .pill { background: #fff; color: #1A237E; font-size: clamp(10px,2.8vw,12px); font-weight: 600; padding: 8px 12px; border-radius: 20px; white-space: nowrap; border: 1.5px solid #C5CAE9; }
+
+    /* Notify */
+    .notify { margin-top: 32px; width: 100%; max-width: 400px; animation: fadeUp 0.8s 2.4s ease forwards; opacity: 0; }
+    .notify p { font-size: 13px; color: #9CA3AF; margin-bottom: 10px; }
+    .notify-form { display: flex; gap: 8px; }
+    .notify-form input { flex: 1; padding: 13px 16px; border: 1.5px solid #E0E4FF; border-radius: 12px; font-size: 14px; color: #1A1A2E; outline: none; transition: border-color 0.2s; min-width: 0; }
+    .notify-form input:focus { border-color: var(--blue); }
+    .notify-form button { padding: 13px 18px; background: linear-gradient(135deg, #1A237E, #1A56DB); color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: transform 0.15s, box-shadow 0.15s; }
+    .notify-form button:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(26,86,219,0.4); }
+    .success-msg { display: none; color: #059669; font-weight: 700; font-size: 13px; margin-top: 10px; }
+
+    /* Socials */
+    .socials { display: flex; gap: 12px; justify-content: center; margin-top: 28px; animation: fadeUp 0.8s 2.6s ease forwards; opacity: 0; }
+    .social-link { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 1.5px solid #E0E4FF; background: #fff; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+    .social-link:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(26,86,219,0.2); border-color: var(--blue); }
+
+    /* Footer */
+    .footer { margin-top: 20px; font-size: 12px; color: #D1D5DB; animation: fadeUp 0.8s 2.8s ease forwards; opacity: 0; padding-bottom: 32px; }
+    .footer a { color: var(--blue); text-decoration: none; }
+
+    @keyframes fadeUp { 0% { opacity:0; transform:translateY(20px); } 100% { opacity:1; transform:translateY(0); } }
 
     @media (max-width: 480px) {
-      body { justify-content: flex-start; padding-top: 20px; overflow-y: auto; }
-      .container { padding: 30px 20px; width: 100%; }
-      .logo-container { width: 120px; height: 120px; }
-      .logo-wrap img { width: 90px; height: 90px; }
-      .pulse-ring { width: 120px; height: 120px; }
-      .brand { font-size: 48px; letter-spacing: 8px; }
-      .underline { animation: lineInMobile 0.8s 1.2s ease forwards; }
-      @keyframes lineInMobile { to { width: 180px; } }
-      .tagline { font-size: 12px; letter-spacing: 3px; }
-      .coming { margin-top: 32px; }
-      .coming h2 { font-size: 22px; }
-      .coming p { font-size: 14px; }
-      .features { gap: 8px; margin-top: 24px; flex-wrap: wrap; }
-      .pill { font-size: 12px; padding: 7px 13px; }
-      .notify { margin-top: 28px; }
-      .notify-form { flex-direction: column; gap: 10px; }
-      .notify-form input { width: 100%; }
+      .hero { padding: 72px 20px 40px; }
+      .notify-form { flex-direction: column; }
       .notify-form button { width: 100%; }
-      .footer { margin-top: 32px; margin-bottom: 20px; }
-    }
-
-    @media (max-width: 360px) {
-      .brand { font-size: 40px; letter-spacing: 6px; }
-      .coming h2 { font-size: 20px; }
+      .doc-reg-btn a { font-size: 11px; padding: 9px 13px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating particles -->
-  <div class="particles" id="particles"></div>
+  <div class="doc-reg-btn">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdrmFIPjU5awzahdXnUjDFBU5aNC-0VtcM85-tBI6bFbL-tEg/viewform" target="_blank" rel="noopener">
+      <div class="doc-reg-pulse"></div>
+      Doctor Registration
+    </a>
+  </div>
 
-  <div class="container">
+  <div class="hero">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
 
-    <!-- Logo with pulse rings -->
     <div class="logo-container">
       <div class="pulse-ring"></div>
       <div class="pulse-ring"></div>
       <div class="pulse-ring"></div>
-      <div class="logo-wrap">
-        <img src="logo.png" alt="VYDO Logo" />
-      </div>
+      <img src="logo.png" alt="VYDO" />
     </div>
 
-    <!-- Brand -->
     <div class="brand">VYDO</div>
     <div class="underline"></div>
     <div class="tagline">India's Healthcare App</div>
 
-    <!-- Coming soon -->
     <div class="coming">
       <h2>We're <span>Coming Soon</span> 🚀</h2>
-      <p>
-        VYDO is building India's most trusted healthcare platform,
-        connecting patients with verified doctors for physical &amp; video consultations.
-        <br /><br />
-        <strong>Stay tuned. Something amazing is on the way.</strong>
-      </p>
+      <p>Connecting patients with verified doctors for physical &amp; video consultations. Something amazing is on the way.</p>
     </div>
 
-    <!-- Feature pills -->
     <div class="features">
       <span class="pill">Book Appointments</span>
       <span class="pill">Video Consultations</span>
@@ -317,46 +149,49 @@
       <span class="pill">AI Health Assistant</span>
     </div>
 
-    <!-- Notify form -->
     <div class="notify">
       <p>Get notified when we launch</p>
       <form class="notify-form" onsubmit="handleNotify(event)">
         <input type="email" id="emailInput" placeholder="Enter your email" required />
         <button type="submit">Notify Me</button>
       </form>
-      <div class="success-msg" id="successMsg">You're on the list! We'll notify you at launch.</div>
+      <div class="success-msg" id="successMsg">You're on the list! 🎉</div>
     </div>
 
-    <!-- Footer -->
+    <div class="socials">
+      <a class="social-link" href="https://www.instagram.com/vydo.in?igsh=Ym5lOTI2MjQ0dGo4" target="_blank" rel="noopener" title="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="ig" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#f09433"/><stop offset="50%" stop-color="#dc2743"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig)" stroke-width="2"/>
+          <circle cx="12" cy="12" r="4" stroke="url(#ig)" stroke-width="2"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="#dc2743"/>
+        </svg>
+      </a>
+      <a class="social-link" href="https://www.youtube.com/@vydoindia?si=pjuJJDPkUz3eJkPQ" target="_blank" rel="noopener" title="YouTube">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="5" width="20" height="14" rx="4" fill="#FF0000"/>
+          <polygon points="10,8.5 10,15.5 16,12" fill="#fff"/>
+        </svg>
+      </a>
+      <a class="social-link" href="https://www.linkedin.com/company/vydoindia/" target="_blank" rel="noopener" title="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="4" fill="#0A66C2"/>
+          <rect x="6" y="10" width="2.5" height="8" fill="#fff"/>
+          <circle cx="7.25" cy="7.25" r="1.5" fill="#fff"/>
+          <path d="M11 10h2.5v1.5c.5-1 1.5-1.5 2.5-1.5 2 0 3 1.2 3 3.5V18h-2.5v-4c0-1-.4-1.5-1.2-1.5s-1.3.5-1.3 1.5V18H11V10z" fill="#fff"/>
+        </svg>
+      </a>
+    </div>
+
     <div class="footer">
       © 2026 VYDO · <a href="mailto:contact@vydo.in">contact@vydo.in</a>
     </div>
-
   </div>
 
   <script>
-    // Generate particles
-    const container = document.getElementById('particles');
-    for (let i = 0; i < 18; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const size = Math.random() * 60 + 20;
-      p.style.cssText = `
-        width: ${size}px;
-        height: ${size}px;
-        left: ${Math.random() * 100}%;
-        animation-duration: ${Math.random() * 12 + 8}s;
-        animation-delay: ${Math.random() * 8}s;
-      `;
-      container.appendChild(p);
-    }
-
-    // Notify form — submits to Formspree
     async function handleNotify(e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
-      if (!email || !email.includes('@')) return;
-
       try {
         const res = await fetch('https://formspree.io/f/mzdkvjre', {
           method: 'POST',
@@ -367,11 +202,8 @@
           document.querySelector('.notify-form').style.display = 'none';
           document.getElementById('successMsg').style.display = 'block';
         }
-      } catch (err) {
-        alert('Something went wrong. Please try again.');
-      }
+      } catch { alert('Something went wrong. Please try again.'); }
     }
   </script>
-
 </body>
 </html>

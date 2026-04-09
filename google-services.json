@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "451446758458",
+    "project_id": "vydo-69727",
+    "storage_bucket": "vydo-69727.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451446758458:android:899566900b3a716de26903",
+        "android_client_info": {
+          "package_name": "in.vydo.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO7BY8Rf2uLe0AZx1_IYsS448gVSWV8gA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

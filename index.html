@@ -2247,11 +2247,15 @@
       }
     });
 
-    // Search button click
+    // Search button click — only allow valid cities
     document.getElementById('searchBtn').addEventListener('click', function() {
       const val = cityInput.value.trim();
-      if (val) {
-        window.location.href = `coming-soon.html?page=city&city=${encodeURIComponent(val)}`;
+      const match = locations.find(l => l.name.toLowerCase() === val.toLowerCase());
+      if (match) {
+        window.location.href = `coming-soon.html?page=city&city=${encodeURIComponent(match.name)}`;
+      } else if (val) {
+        suggestionsEl.innerHTML = '<div class="suggestion-item" style="justify-content:center;color:#999;cursor:default;padding:20px;">We don\'t have this location yet. Try searching from the suggestions.</div>';
+        suggestionsEl.classList.add('active');
       }
     });
 

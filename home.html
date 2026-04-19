@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VYDO India's Doctor Booking</title>
+  <link rel="icon" href="icon.png" type="image/png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    ::selection {
+      background: #1A56DB;
+      color: #fff;
+    }
+
+    ::-moz-selection {
+      background: #1A56DB;
+      color: #fff;
+    }
+    
+    @keyframes slideInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes buttonHover {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-8px) scale(1.02); }
+      100% { transform: translateY(-6px) scale(1.02); }
+    }
+    @keyframes glow {
+      0% { box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+      50% { box-shadow: 0 12px 40px rgba(26, 86, 219, 0.3); }
+      100% { box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: #1A237E;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: #fff;
+      padding: 6px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 20px rgba(26, 86, 219, 0.08);
+      animation: slideInDown 0.6s ease-out;
+      border-bottom: 1px solid #eef2ff;
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 40px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 22px;
+      color: #1A56DB;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    .nav-logo:hover {
+      transform: scale(1.05);
+    }
+    .nav-logo img { 
+      width: 100px; 
+      height: 100px; 
+      filter: brightness(0) saturate(100%) invert(27%) sepia(85%) saturate(2000%) hue-rotate(215deg) brightness(95%) contrast(95%);
+      transition: transform 0.3s ease;
+    }
+    .nav-logo:hover img {
+      transform: rotate(360deg) scale(1.1);
+    }
+    .nav-menu {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+    }
+    .nav-menu a {
+      text-decoration: none;
+      color: #1A237E;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      white-space: nowrap;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    .nav-menu a:hover { 
+      background: rgba(26, 86, 219, 0.08);
+      transform: translateY(-3px) scale(1.05);
+      color: #1A56DB;
+    }
+    .nav-menu a:active {
+      transform: scale(0.95);
+      transition: all 0.1s ease;
+    }
+    .nav-btn {
+      background: linear-gradient(135deg, #1A56DB 0%, #1246C0 100%);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(26, 86, 219, 0.25);
+    }
+    .nav-btn:hover { 
+      transform: translateY(-4px) scale(1.05); 
+      box-shadow: 0 8px 28px rgba(26, 86, 219, 0.4);
+    }
+    .nav-btn:active {
+      transform: scale(0.95);
+      transition: all 0.1s ease;
+    }
+
+    .nav-btn.doc-reg {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.25);
+    }
+
+    .nav-btn.doc-reg:hover {
+      box-shadow: 0 8px 28px rgba(5, 150, 105, 0.4);
+    }
+
+    /* HERO */
+    .hero {
+      background: #fff;
+      padding: 40px 40px 60px;
+      color: #1A237E;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      align-items: center;
+      min-height: calc(100vh - 90px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      display: none;
+    }
+
+    .hero::after {
+      display: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      animation: slideInLeft 0.8s ease-out 0.2s both;
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: #1A56DB;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 12px;
+      opacity: 0.98;
+      line-height: 1.8;
+      max-width: 480px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .hero .tagline {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1A56DB;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      max-width: 540px;
+    }
+
+    .search-section {
+      background: #f8faff;
+      padding: 14px 20px;
+      border-radius: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(26, 86, 219, 0.1);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid #e0e8ff;
+    }
+
+    .search-section:focus-within {
+      border-color: #1A56DB;
+      box-shadow: 0 8px 30px rgba(26, 86, 219, 0.15);
+      transform: translateY(-2px);
+      background: #fff;
+    }
+
+    .search-section input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      padding: 10px 4px;
+      color: #333;
+      font-weight: 500;
+      background: transparent;
+    }
+
+    .search-section input::placeholder { color: #999; }
+
+    .search-section button {
+      background: linear-gradient(135deg, #1A56DB 0%, #1246C0 100%);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      padding: 12px 14px;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(26, 86, 219, 0.25);
+    }
+
+    .search-section button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(26, 86, 219, 0.35);
+    }
+
+    .search-section button:active { transform: scale(0.95); }
+
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 12px 40px rgba(26, 86, 219, 0.15);
+      margin-top: 8px;
+      max-height: 320px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+      border: 1px solid #e0e8ff;
+    }
+
+    .suggestions.active { display: block; animation: fadeInSugg 0.2s ease; }
+
+    @keyframes fadeInSugg {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .suggestion-item {
+      padding: 14px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s ease;
+      border-bottom: 1px solid #f0f4ff;
+    }
+
+    .suggestion-item:last-child { border-bottom: none; }
+    .suggestion-item:hover { background: #f0f4ff; }
+
+    .suggestion-item .city-name { font-weight: 700; color: #1A56DB; font-size: 15px; }
+    .suggestion-item .city-state { font-size: 12px; color: #888; }
+
+    .suggestion-item .city-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #f0f4ff; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+
+    .suggestion-item .badge {
+      margin-left: auto; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px; flex-shrink: 0;
+    }
+
+    .suggestion-item .badge.live { background: #e8faf0; color: #059669; }
+    .suggestion-item .badge.soon { background: #fff7ed; color: #d97706; }
+
+    .suggestions::-webkit-scrollbar { width: 6px; }
+    .suggestions::-webkit-scrollbar-thumb { background: #d0d8f0; border-radius: 3px; }
+
+    .hero-image {
+      position: relative;
+      z-index: 2;
+      animation: slideInRight 0.8s ease-out 0.2s both;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .hero-image img:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #f8faff;
+      border-top: 2px solid #e0e8ff;
+      padding: 50px 40px 30px;
+      text-align: center;
+    }
+
+    .footer-notify {
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+
+    .footer-notify h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1A56DB;
+      margin-bottom: 8px;
+    }
+
+    .footer-notify p {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 16px;
+    }
+
+    .notify-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .notify-form input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e0e8ff;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .notify-form input:focus {
+      border-color: #1A56DB;
+      box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+    }
+
+    .notify-form button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #1A56DB, #1246C0);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .notify-form button:hover {
+      box-shadow: 0 6px 20px rgba(26, 86, 219, 0.3);
+    }
+
+    .notify-form button:active {
+      transform: scale(0.97);
+    }
+
+    .notify-success {
+      display: none;
+      color: #059669;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: #1A56DB;
+      border: 2px solid #e0e8ff;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .social-link:hover {
+      background: #1A56DB;
+      color: #fff;
+      border-color: #1A56DB;
+    }
+
+    .social-link:active {
+      transform: scale(0.95);
+    }
+
+    .footer-contact {
+      margin-bottom: 20px;
+    }
+
+    .footer-contact a {
+      color: #1A56DB;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .footer-contact a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #666;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: #1A56DB;
+    }
+
+    .footer-compliance {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #059669;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-credit {
+      font-weight: 600;
+      color: #999;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .footer { padding: 40px 20px 24px; }
+      .notify-form { flex-direction: column; }
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 60px 24px;
+        gap: 40px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 40px 16px;
+        min-height: auto;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 24px;
+      }
+
+      .search-section {
+        flex-direction: row;
+      }
+
+      .hero-image img {
+        max-width: 300px;
+      }
+    }
+    /* SPECIALTIES SECTION */
+    .specialties {
+      padding: 80px 40px;
+      background: #f8faff;
+      text-align: center;
+    }
+
+    .specialties h2 {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1A56DB;
+      margin-bottom: 12px;
+    }
+
+    .specialties .section-sub {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 50px;
+    }
+
+    .specialties-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .specialty-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid #eef2ff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .specialty-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(26, 86, 219, 0.04), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .specialty-card:hover::before {
+      left: 100%;
+    }
+
+    .specialty-card:hover {
+      border-color: #1A56DB;
+      box-shadow: 0 16px 40px rgba(26, 86, 219, 0.12);
+      background: #f0f4ff;
+    }
+
+    .specialty-card:active {
+      transform: scale(0.97) !important;
+      background: #1A56DB;
+      border-color: #1A56DB;
+      transition: all 0.1s ease;
+    }
+
+    .specialty-card:active h3 {
+      color: #fff;
+    }
+
+    .specialty-card img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .specialty-card:hover img {
+      transform: none;
+    }
+
+    .specialty-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A56DB;
+      margin: 0;
+    }
+
+    @media (max-width: 1024px) {
+      .specialties-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .specialties-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .specialties {
+        padding: 60px 20px;
+      }
+      .specialties h2 {
+        font-size: 30px;
+      }
+    }
+
+    /* WHY VYDO */
+    .why-vydo {
+      padding: 80px 40px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .why-vydo h2 {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1A56DB;
+      margin-bottom: 12px;
+    }
+
+    .why-sub {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 50px;
+    }
+
+    .why-vydo .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .why-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 18px;
+      text-align: center;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid #f0f4ff;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .why-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .why-card:hover {
+      border-color: #1A56DB;
+      box-shadow: 0 16px 40px rgba(26, 86, 219, 0.1);
+      background: #f0f4ff;
+    }
+
+    .why-card:active {
+      transform: scale(0.97);
+      background: #1A56DB;
+      border-color: #1A56DB;
+      transition: all 0.1s ease;
+    }
+
+    .why-card:active h3,
+    .why-card:active p {
+      color: #fff;
+    }
+
+    .why-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      transition: transform 0.3s ease;
+    }
+
+    .why-card:hover .why-icon {
+      transform: none;
+    }
+
+    .why-icon img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .why-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A56DB;
+      margin-bottom: 8px;
+    }
+
+    .why-card p {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .why-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .why-vydo {
+        padding: 60px 20px;
+      }
+      .why-vydo h2 {
+        font-size: 30px;
+      }
+    }
+
+    /* HOW VYDO WORKS - PROCESS */
+    .process-section {
+      padding: 50px 40px;
+      background: #f8faff;
+      text-align: center;
+    }
+
+    .process-section h2 {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1A56DB;
+      margin-bottom: 12px;
+    }
+
+    .process-section .section-sub {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 60px;
+    }
+
+    .process-timeline {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .process-line { display: none; }
+
+    .process-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 180px;
+      flex-shrink: 0;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .process-step.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .step-dot {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1A56DB, #1246C0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(26, 86, 219, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .step-dot::after {
+      content: '';
+      position: absolute;
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      border: 2px solid rgba(26, 86, 219, 0.15);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 0; }
+    }
+
+    .process-step:hover .step-dot {
+      transform: scale(1.15);
+      box-shadow: 0 8px 28px rgba(26, 86, 219, 0.45);
+    }
+
+    .step-dot span {
+      color: #fff;
+      font-weight: 800;
+      font-size: 20px;
+      z-index: 1;
+    }
+
+    .pipe-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      flex-shrink: 0;
+      position: relative;
+      margin-top: -60px;
+    }
+
+    .pipe-arrow .pipe-line {
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #1A56DB, #06B6D4);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pipe-arrow .pipe-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -40px;
+      width: 40px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+      animation: pipeFlow 2s linear infinite;
+    }
+
+    @keyframes pipeFlow {
+      0% { left: -40px; }
+      100% { left: 100%; }
+    }
+
+    .pipe-arrow svg {
+      position: absolute;
+      right: -6px;
+    }
+
+    .pipe-down {
+      display: flex;
+      justify-content: center;
+      margin: -10px 0;
+      position: relative;
+    }
+
+    .pipe-down .pipe-vert {
+      width: 3px;
+      height: 50px;
+      background: linear-gradient(180deg, #06B6D4, #1A56DB);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pipe-down .pipe-vert::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: -20px;
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.8), transparent);
+      animation: pipeFlowDown 2s linear infinite;
+    }
+
+    @keyframes pipeFlowDown {
+      0% { top: -20px; }
+      100% { top: 100%; }
+    }
+
+    .step-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 14px;
+      border: 2px solid #eef2ff;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+      width: 100%;
+    }
+
+    .process-step:hover .step-card {
+      border-color: #1A56DB;
+      box-shadow: 0 10px 30px rgba(26, 86, 219, 0.12);
+      background: #f0f4ff;
+    }
+
+    .process-step:active .step-card {
+      background: #1A56DB;
+      border-color: #1A56DB;
+      transform: scale(0.97);
+      transition: all 0.1s ease;
+    }
+
+    .process-step:active .step-content h3,
+    .process-step:active .step-content p {
+      color: #fff;
+    }
+
+    .step-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .process-step:hover .step-icon {
+      transform: none;
+    }
+
+    .step-content h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1A56DB;
+      margin: 0 0 4px;
+    }
+
+    .step-content p {
+      font-size: 11px;
+      color: #888;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      .process-row { flex-wrap: wrap; gap: 20px; }
+      .pipe-arrow { display: none; }
+      .pipe-down { display: none; }
+      .process-step { width: 140px; }
+    }
+
+    @media (max-width: 768px) {
+      .process-section { padding: 60px 16px; }
+      .process-section h2 { font-size: 30px; }
+      .process-step { width: 130px; }
+    }
+
+    /* EMERGENCY FEATURE */
+    .emergency-section {
+      padding: 70px 40px;
+      background: #fff;
+    }
+
+    .emer-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .emer-tag {
+      display: inline-block;
+      background: #fee2e2;
+      color: #EF4444;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .emer-left h2 {
+      font-size: 38px;
+      font-weight: 900;
+      color: #1A237E;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .emer-left p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .emer-stats {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .emer-stat strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 900;
+      color: #1A56DB;
+    }
+
+    .emer-stat span {
+      font-size: 12px;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .emer-stat-divider {
+      width: 1px;
+      height: 36px;
+      background: #e0e8ff;
+    }
+
+    .emer-right {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .emer-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #fff;
+      border: 2px solid #f0f4ff;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .emer-card:hover {
+      border-color: #1A56DB;
+      background: #f8faff;
+    }
+
+    .emer-card.picked {
+      border-color: #1A56DB;
+      background: #f0f4ff;
+    }
+
+    .emer-card:active {
+      transform: scale(0.98);
+    }
+
+    .emer-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .emer-card-mid {
+      flex: 1;
+    }
+
+    .emer-card-mid h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A237E;
+      margin: 0;
+    }
+
+    .emer-card-mid p {
+      font-size: 12px;
+      color: #999;
+      margin: 2px 0 0;
+    }
+
+    .emer-card-time {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1A56DB;
+      white-space: nowrap;
+    }
+
+    .emer-action {
+      margin-top: 4px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.3s ease;
+    }
+
+    .emer-action.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .emer-go-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #1A56DB, #1246C0);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .emer-go-btn:hover {
+      box-shadow: 0 8px 24px rgba(26, 86, 219, 0.3);
+    }
+
+    .emer-go-btn:active {
+      transform: scale(0.97);
+    }
+
+    @media (max-width: 768px) {
+      .emer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .emer-left h2 { font-size: 28px; }
+      .emergency-section { padding: 50px 20px; }
+    }
+
+    /* WHY WE BUILT VYDO */
+    .reason-section {
+      padding: 50px 0;
+      background: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .reason-section h2 {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1A56DB;
+      margin-bottom: 8px;
+    }
+
+    .reason-section .section-sub {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 44px;
+    }
+
+    .reason-track-wrapper {
+      width: 100%;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+
+    .reason-track {
+      display: flex;
+      gap: 20px;
+      animation: scrollReasons 40s linear infinite;
+      width: max-content;
+    }
+
+    @keyframes scrollReasons {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .reason-track:hover {
+      animation-play-state: paused;
+    }
+
+    .reason-card {
+      width: 300px;
+      flex-shrink: 0;
+      background: #fff;
+      border: 2px solid #f0f4ff;
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: left;
+      transition: all 0.25s ease;
+    }
+
+    .reason-card:hover {
+      border-color: #1A56DB;
+      background: #f0f4ff;
+    }
+
+    .reason-quote {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .reason-author {
+      font-size: 12px;
+      color: #999;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .reason-solution {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1A56DB;
+      line-height: 1.5;
+      padding: 10px 14px;
+      background: #eef4ff;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .reason-section { padding: 50px 0; }
+      .reason-section h2 { font-size: 30px; }
+      .reason-card { width: 260px; }
+    }
+
+    /* OUR JOURNEY */
+    .journey-section {
+      padding: 70px 40px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .journey-section h2 {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1A56DB;
+      margin-bottom: 8px;
+    }
+
+    .journey-section .section-sub {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 44px;
+    }
+
+    .journey-timeline {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .journey-timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #059669, #1A56DB, #999);
+      border-radius: 2px;
+    }
+
+    .journey-item {
+      position: relative;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .journey-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .journey-dot {
+      position: absolute;
+      left: -28px;
+      top: 18px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      z-index: 1;
+    }
+
+    .done .journey-dot { background: #059669; box-shadow: 0 0 0 3px #d1fae5; }
+    .building .journey-dot { background: #1A56DB; box-shadow: 0 0 0 3px #dbeafe; animation: pulse2 2s ease infinite; }
+    .upcoming .journey-dot { background: #999; box-shadow: 0 0 0 3px #e5e7eb; }
+
+    @keyframes pulse2 {
+      0%, 100% { box-shadow: 0 0 0 3px #dbeafe; }
+      50% { box-shadow: 0 0 0 8px rgba(26, 86, 219, 0.15); }
+    }
+
+    .journey-card {
+      background: #fff;
+      border: 2px solid #f0f4ff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      text-align: left;
+      transition: all 0.25s ease;
+    }
+
+    .journey-item:hover .journey-card {
+      border-color: #1A56DB;
+      background: #f0f4ff;
+    }
+
+    .journey-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .done-badge { background: #d1fae5; color: #059669; }
+    .building-badge { background: #dbeafe; color: #1A56DB; }
+    .upcoming-badge { background: #f3f4f6; color: #888; }
+
+    .journey-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1A237E;
+      margin: 0 0 6px;
+    }
+
+    .journey-card p {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .journey-section { padding: 50px 20px; }
+      .journey-section h2 { font-size: 30px; }
+    }
+
+    /* Scroll reveal animation */
+    .specialty-card {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .specialty-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* HAMBURGER MENU */
+    .nav-toggle {
+      display: none !important;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* ===== RESPONSIVE: LARGE SCREENS (TV/Projector) ===== */
+    @media (min-width: 1600px) {
+      .hero { padding: 60px 80px; max-width: 1600px; margin: 0 auto; }
+      .hero h1 { font-size: 68px; }
+      .hero-image img { max-width: 700px; }
+      .specialties-grid { max-width: 1400px; }
+      .why-vydo .why-grid { max-width: 1300px; }
+      .process-timeline { max-width: 1400px; }
+      .emer-container { max-width: 1200px; }
+    }
+
+    /* ===== RESPONSIVE: TABLET (768px - 1024px) ===== */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 40px 24px;
+        gap: 30px;
+      }
+      .hero-content { max-width: 100%; }
+      .hero h1 { font-size: 44px; }
+      .hero-image { justify-content: center; }
+      .hero-image img { max-width: 500px; }
+      .specialties-grid { grid-template-columns: repeat(3, 1fr); }
+      .why-vydo .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-row { flex-wrap: wrap; gap: 20px; justify-content: center; }
+      .pipe-arrow { display: none; }
+      .process-step { width: 160px; }
+      .emer-container { grid-template-columns: 1fr; gap: 32px; }
+      .emer-left { text-align: center; }
+      .emer-stats { justify-content: center; }
+    }
+
+    /* ===== RESPONSIVE: MOBILE (max 768px) ===== */
+    @media (max-width: 768px) {
+      /* Navbar */
+      .nav-toggle { display: block !important; }
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        padding: 16px 20px;
+        gap: 4px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        border-top: 1px solid #eef2ff;
+        z-index: 100;
+      }
+      .nav-menu.active { display: flex; }
+      .nav-menu a {
+        padding: 12px 16px;
+        font-size: 16px;
+        width: 100%;
+        border-radius: 10px;
+      }
+      .nav-menu a:hover { background: #f0f4ff; }
+      .nav-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 4px;
+      }
+      .nav-logo img { width: 60px; height: 60px; }
+      .navbar { padding: 8px 16px; }
+
+      /* Hero */
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 24px 16px 32px;
+        min-height: auto;
+        gap: 24px;
+      }
+      .hero h1 { font-size: 32px; }
+      .hero .tagline { font-size: 12px; letter-spacing: 1.5px; margin-bottom: 20px; }
+      .search-wrapper { max-width: 100%; }
+      .hero-image img { max-width: 100%; border-radius: 16px; }
+
+      /* Specialties */
+      .specialties { padding: 40px 16px; }
+      .specialties h2 { font-size: 28px; }
+      .specialties-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .specialty-card { padding: 20px 12px; }
+      .specialty-card img { width: 48px; height: 48px; }
+      .specialty-card h3 { font-size: 13px; }
+
+      /* Why VYDO */
+      .why-vydo { padding: 40px 16px; }
+      .why-vydo h2 { font-size: 28px; }
+      .why-sub { font-size: 14px; margin-bottom: 30px; }
+      .why-vydo .why-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .why-card { padding: 18px 14px; }
+      .why-card h3 { font-size: 13px; }
+      .why-card p { font-size: 12px; }
+      .why-icon { width: 44px; height: 44px; }
+      .why-icon img { width: 24px; height: 24px; }
+
+      /* Emergency */
+      .emergency-section { padding: 40px 16px; }
+      .emer-container { grid-template-columns: 1fr; gap: 24px; }
+      .emer-left h2 { font-size: 28px; }
+      .emer-left { text-align: center; }
+      .emer-stats { justify-content: center; flex-wrap: wrap; }
+
+      /* Process */
+      .process-section { padding: 40px 16px; }
+      .process-section h2 { font-size: 28px; }
+      .process-row { flex-wrap: wrap; gap: 16px; justify-content: center; }
+      .pipe-arrow { display: none; }
+      .process-step { width: 140px; }
+      .step-dot { width: 44px; height: 44px; }
+      .step-dot span { font-size: 16px; }
+
+      /* Why We Built */
+      .reason-section { padding: 40px 0; }
+      .reason-section h2 { font-size: 28px; }
+      .reason-card { width: 260px; }
+
+      /* Footer */
+      .footer { padding: 36px 16px 20px; }
+      .footer-notify h3 { font-size: 18px; }
+      .notify-form { flex-direction: column; }
+      .footer-links { gap: 16px; }
+    }
+
+    /* ===== RESPONSIVE: SMALL MOBILE (max 480px) ===== */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 26px; }
+      .hero .tagline { font-size: 11px; }
+      .hero { padding: 20px 12px 24px; }
+      .search-section { padding: 10px 14px; }
+      .search-section input { font-size: 14px; padding: 8px 4px; }
+
+      .specialties-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .specialty-card { padding: 16px 10px; border-radius: 14px; }
+      .specialty-card img { width: 40px; height: 40px; margin-bottom: 10px; }
+      .specialty-card h3 { font-size: 12px; }
+
+      .why-vydo .why-grid { grid-template-columns: 1fr; }
+      .why-card { padding: 16px; }
+
+      .process-step { width: 120px; }
+      .step-card { padding: 12px 8px; }
+      .step-content h3 { font-size: 11px; }
+      .step-content p { font-size: 10px; }
+
+      .emer-left h2 { font-size: 24px; }
+      .emer-stat strong { font-size: 18px; }
+
+      .reason-card { width: 240px; padding: 18px 16px; }
+      .reason-quote { font-size: 13px; }
+
+      .footer-socials { gap: 12px; }
+      .social-link { width: 38px; height: 38px; }
+    }
+
+    /* ===== RESPONSIVE: VERY SMALL MOBILE (max 360px) ===== */
+    @media (max-width: 360px) {
+      .hero h1 { font-size: 22px; }
+      .hero .tagline { font-size: 10px; letter-spacing: 1px; }
+      .hero { padding: 16px 10px 20px; gap: 16px; }
+      .nav-logo img { width: 50px; height: 50px; }
+      .navbar { padding: 6px 10px; }
+
+      .specialties { padding: 30px 10px; }
+      .specialties h2 { font-size: 22px; }
+      .specialties-grid { gap: 8px; }
+      .specialty-card { padding: 14px 8px; }
+      .specialty-card img { width: 36px; height: 36px; }
+      .specialty-card h3 { font-size: 11px; }
+
+      .why-vydo { padding: 30px 10px; }
+      .why-vydo h2 { font-size: 22px; }
+      .why-card { padding: 14px 12px; }
+      .why-icon { width: 38px; height: 38px; }
+      .why-icon img { width: 20px; height: 20px; }
+
+      .emergency-section { padding: 30px 10px; }
+      .emer-left h2 { font-size: 22px; }
+      .emer-left p { font-size: 13px; }
+      .emer-stats { gap: 12px; }
+      .emer-stat strong { font-size: 16px; }
+      .emer-card { padding: 12px 14px; }
+
+      .process-section { padding: 30px 10px; }
+      .process-section h2 { font-size: 22px; }
+      .process-step { width: 110px; }
+      .step-dot { width: 38px; height: 38px; }
+      .step-dot span { font-size: 14px; }
+
+      .reason-section h2 { font-size: 22px; }
+      .reason-card { width: 220px; padding: 16px 14px; }
+      .reason-quote { font-size: 12px; }
+      .reason-solution { font-size: 12px; padding: 8px 10px; }
+
+      .footer { padding: 28px 10px 16px; }
+      .footer-notify h3 { font-size: 16px; }
+      .footer-links { gap: 12px; }
+      .footer-links a { font-size: 12px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="nav-logo" href="home.html">
+        <img src="logo.png" alt="VYDO" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <menu class="nav-menu">
+        <li><a href="coming-soon.html?page=emergency">Emergency</a></li>
+        <li><a href="coming-soon.html?page=health">Health Tips</a></li>
+        <li><a href="coming-soon.html?page=doctors">For Doctors</a></li>
+        <li><button class="nav-btn" onclick="window.location.href='coming-soon.html?page=download'">Download App</button></li>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdrmFIPjU5awzahdXnUjDFBU5aNC-0VtcM85-tBI6bFbL-tEg/viewform" target="_blank" rel="noopener"><button class="nav-btn doc-reg">Doctor Registration</button></a></li>
+      </menu>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Your Health,<br>Our Priority</h1>
+      <p class="tagline">India's Doctor Booking</p>
+
+      <div class="search-wrapper">
+        <div class="search-section">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <input type="text" placeholder="Enter your city, district or village..." id="cityInput" autocomplete="off" />
+          <button type="button" id="searchBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        </div>
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="doctor.png" alt="Doctor" />
+    </div>
+  </div>
+
+  <!-- SPECIALTIES -->
+  <div class="specialties" id="specialties">
+    <h2>Browse by Specialty</h2>
+    <p class="section-sub">Find the right doctor for your health needs</p>
+    <div class="specialties-grid">
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/heart-health.png" alt="Cardiologist" />
+        <h3>Cardiologist</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/dermatology.png" alt="Dermatologist" />
+        <h3>Dermatologist</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/brain.png" alt="Neurologist" />
+        <h3>Neurologist</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/skeleton.png" alt="Orthopedic" />
+        <h3>Orthopedic</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/baby.png" alt="Pediatrician" />
+        <h3>Pediatrician</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/stethoscope.png" alt="General Physician" />
+        <h3>General Physician</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/pregnant.png" alt="Gynecologist" />
+        <h3>Gynecologist</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/vision.png" alt="Ophthalmologist" />
+        <h3>Ophthalmologist</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/tooth.png" alt="ENT Specialist" />
+        <h3>ENT Specialist</h3>
+      </div>
+      <div class="specialty-card" onclick="window.location.href='coming-soon.html?page=feature'">
+        <img src="https://img.icons8.com/color/200/mental-health.png" alt="Psychiatrist" />
+        <h3>Psychiatrist</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY VYDO -->
+  <div class="why-vydo" id="why-vydo">
+    <h2>Why VYDO?</h2>
+    <p class="why-sub">Everything you need for a better healthcare experience</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon" style="background:#eef4ff;">
+          <img src="https://img.icons8.com/color/200/clock--v1.png" alt="Instant" />
+        </div>
+        <h3>Instant Booking</h3>
+        <p>Book in under 60 seconds</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#e8faf0;">
+          <img src="https://img.icons8.com/color/200/verified-account.png" alt="Verified" />
+        </div>
+        <h3>Verified Doctors</h3>
+        <p>All doctors are certified</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#fefce8;">
+          <img src="https://img.icons8.com/color/200/rupee.png" alt="Affordable" />
+        </div>
+        <h3>Affordable Care</h3>
+        <p>Consult from ₹200 only</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#fef2f2;">
+          <img src="https://img.icons8.com/color/200/video-call.png" alt="Video" />
+        </div>
+        <h3>Video Consult</h3>
+        <p>See a doctor from home</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#fff1f2;">
+          <img src="https://img.icons8.com/color/200/ambulance.png" alt="Emergency" />
+        </div>
+        <h3>Emergency Care</h3>
+        <p>Doctor in 2-5 min, 24/7</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#eff6ff;">
+          <img src="icon.png" alt="Records" />
+        </div>
+        <h3>Health Records</h3>
+        <p>All prescriptions in one place</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMERGENCY FEATURE -->
+  <div class="emergency-section" id="emergency-feature">
+    <div class="emer-container">
+      <div class="emer-left">
+        <span class="emer-tag">24/7 Emergency</span>
+        <h2>Need a doctor<br>right now?</h2>
+        <p>Tell us how urgent it is. We'll connect you with the nearest available doctor no waiting, no hassle.</p>
+        <div class="emer-stats">
+          <div class="emer-stat">
+            <strong>2 min</strong>
+            <span>Fastest response</span>
+          </div>
+          <div class="emer-stat-divider"></div>
+          <div class="emer-stat">
+            <strong>500+</strong>
+            <span>Doctors on call</span>
+          </div>
+          <div class="emer-stat-divider"></div>
+          <div class="emer-stat">
+            <strong>24/7</strong>
+            <span>Always available</span>
+          </div>
+        </div>
+      </div>
+      <div class="emer-right">
+        <div class="emer-card" data-level="mild" onclick="pickSeverity(this)">
+          <div class="emer-card-left">
+            <div class="emer-dot" style="background:#059669;"></div>
+          </div>
+          <div class="emer-card-mid">
+            <h4>Mild</h4>
+            <p>Fever, cold, headache</p>
+          </div>
+          <div class="emer-card-time">10-15 min</div>
+        </div>
+        <div class="emer-card" data-level="moderate" onclick="pickSeverity(this)">
+          <div class="emer-card-left">
+            <div class="emer-dot" style="background:#F59E0B;"></div>
+          </div>
+          <div class="emer-card-mid">
+            <h4>Moderate</h4>
+            <p>Breathing issues, high fever</p>
+          </div>
+          <div class="emer-card-time">5-10 min</div>
+        </div>
+        <div class="emer-card" data-level="critical" onclick="pickSeverity(this)">
+          <div class="emer-card-left">
+            <div class="emer-dot" style="background:#EF4444;"></div>
+          </div>
+          <div class="emer-card-mid">
+            <h4>Critical</h4>
+            <p>Heart attack, stroke, injury</p>
+          </div>
+          <div class="emer-card-time">2-5 min</div>
+        </div>
+        <div class="emer-action" id="emerAction">
+          <button class="emer-go-btn" onclick="window.location.href='coming-soon.html?page=emergency'">Get Help Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW VYDO WORKS -->
+  <div class="process-section" id="process">
+    <h2>How VYDO Works</h2>
+    <p class="section-sub">Book your doctor appointment in 4 simple steps</p>
+    <div class="process-timeline">
+      <div class="process-line"></div>
+      
+      <div class="process-row">
+        <div class="process-step" data-step="1">
+          <div class="step-dot"><span>1</span></div>
+          <div class="step-card">
+            <div class="step-icon" style="background:#eef4ff;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="step-content">
+              <h3>Search Location</h3>
+              <p>Find doctors in your city</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipe-arrow"><div class="pipe-line"></div><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3" stroke="#1A56DB" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+
+        <div class="process-step" data-step="2">
+          <div class="step-dot"><span>2</span></div>
+          <div class="step-card">
+            <div class="step-icon" style="background:#e8faf0;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+            </div>
+            <div class="step-content">
+              <h3>Choose Doctor</h3>
+              <p>Pick by specialty or rating</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipe-arrow"><div class="pipe-line"></div><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3" stroke="#1A56DB" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+
+        <div class="process-step" data-step="3">
+          <div class="step-dot"><span>3</span></div>
+          <div class="step-card">
+            <div class="step-icon" style="background:#f0eeff;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="step-content">
+              <h3>Book & Pay</h3>
+              <p>Select slot and pay token fee</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipe-arrow"><div class="pipe-line"></div><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6h8M7 3l3 3-3 3" stroke="#1A56DB" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+
+        <div class="process-step" data-step="4">
+          <div class="step-dot"><span>4</span></div>
+          <div class="step-card">
+            <div class="step-icon" style="background:#fef2f2;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg>
+            </div>
+            <div class="step-content">
+              <h3>Show QR & Visit</h3>
+              <p>No queue, instant check-in</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHY WE BUILT VYDO -->
+  <div class="reason-section" id="reason">
+    <h2>Why We Built VYDO</h2>
+    <p class="section-sub">Real problems. Real frustrations. We listened.</p>
+
+    <div class="reason-track-wrapper">
+      <div class="reason-track">
+        <div class="reason-card">
+          <div class="reason-quote">"I waited 3 hours at the hospital just for a 5-minute consultation."</div>
+          <div class="reason-author">Ravi, Hyderabad</div>
+          <div class="reason-solution">We're building slot-based booking walk in at your time, zero waiting.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"I never know which doctor is good. I just go to whoever is nearby."</div>
+          <div class="reason-author">Priya, Bangalore</div>
+          <div class="reason-solution">We're bringing ratings, reviews and experience info so you choose the right doctor.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"My father had chest pain at night. We didn't know who to call."</div>
+          <div class="reason-author">Suresh, Chennai</div>
+          <div class="reason-solution">We're creating one-tap emergency a doctor connects in 2-5 minutes, 24/7.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"I lose my prescriptions and forget what medicine the doctor gave."</div>
+          <div class="reason-author">Lakshmi, Mumbai</div>
+          <div class="reason-solution">We're building digital health records all prescriptions saved, access anytime.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"My child had high fever at 2 AM. No clinic was open."</div>
+          <div class="reason-author">Meena, Delhi</div>
+          <div class="reason-solution">We're enabling video consultations see a doctor from home, even at midnight.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"Doctor appointments are never available when I need them."</div>
+          <div class="reason-author">Anil, Pune</div>
+          <div class="reason-solution">We're showing real-time slot availability across doctors near you.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"I travelled 40 km for a specialist. Turns out he was on leave."</div>
+          <div class="reason-author">Ramesh, Vijayawada</div>
+          <div class="reason-solution">We're doing confirmed appointments only no wasted trips, ever.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"In rural areas, there's no way to find a good doctor quickly."</div>
+          <div class="reason-author">Sita, Warangal</div>
+          <div class="reason-solution">We're expanding to cities, towns and villages across India.</div>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="reason-card">
+          <div class="reason-quote">"I waited 3 hours at the hospital just for a 5-minute consultation."</div>
+          <div class="reason-author">Ravi, Hyderabad</div>
+          <div class="reason-solution">We're building slot-based booking walk in at your time, zero waiting.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"I never know which doctor is good. I just go to whoever is nearby."</div>
+          <div class="reason-author">Priya, Bangalore</div>
+          <div class="reason-solution">We're bringing ratings, reviews and experience info so you choose the right doctor.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"My father had chest pain at night. We didn't know who to call."</div>
+          <div class="reason-author">Suresh, Chennai</div>
+          <div class="reason-solution">We're creating one-tap emergency a doctor connects in 2-5 minutes, 24/7.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"I lose my prescriptions and forget what medicine the doctor gave."</div>
+          <div class="reason-author">Lakshmi, Mumbai</div>
+          <div class="reason-solution">We're building digital health records all prescriptions saved, access anytime.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"My child had high fever at 2 AM. No clinic was open."</div>
+          <div class="reason-author">Meena, Delhi</div>
+          <div class="reason-solution">We're enabling video consultations see a doctor from home, even at midnight.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"Doctor appointments are never available when I need them."</div>
+          <div class="reason-author">Anil, Pune</div>
+          <div class="reason-solution">We're showing real-time slot availability across doctors near you.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"I travelled 40 km for a specialist. Turns out he was on leave."</div>
+          <div class="reason-author">Ramesh, Vijayawada</div>
+          <div class="reason-solution">We're doing confirmed appointments only no wasted trips, ever.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-quote">"In rural areas, there's no way to find a good doctor quickly."</div>
+          <div class="reason-author">Sita, Warangal</div>
+          <div class="reason-solution">We're expanding to cities, towns and villages across India.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <!-- Notify Section -->
+    <div class="footer-notify">
+      <h3>Get Notified When We Launch</h3>
+      <p>Enter your email and we'll let you know when VYDO is live in your city.</p>
+      <form class="notify-form" onsubmit="handleNotify(event)">
+        <input type="email" id="notifyEmail" placeholder="Enter your email..." required />
+        <button type="submit">Notify Me</button>
+      </form>
+      <p class="notify-success" id="notifySuccess">You're on the list! We'll notify you soon.</p>
+    </div>
+
+    <!-- Social Links -->
+    <div class="footer-socials">
+      <a href="https://instagram.com/vydo.in" target="_blank" rel="noopener" class="social-link" title="Instagram">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://linkedin.com/company/vydo" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@VydoIndia" target="_blank" rel="noopener" class="social-link" title="YouTube">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-contact">
+      <a href="mailto:contact@vydo.in">contact@vydo.in</a>
+    </div>
+
+    <!-- Links -->
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <!-- HIPAA & Compliance -->
+    <div class="footer-compliance">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      HIPAA Compliant · Your health data is encrypted and secure
+    </div>
+
+    <div class="footer-credit">© 2026 VYDO. All rights reserved.</div>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('navToggle').addEventListener('click', function() {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    });
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('.nav-menu a, .nav-menu button').forEach(el => {
+      el.addEventListener('click', () => {
+        document.querySelector('.nav-menu').classList.remove('active');
+      });
+    });
+
+    // City data with all cities, districts, villages
+    const locations = [
+      // Available
+      { name: 'Kurnool', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Nandyal', state: 'Andhra Pradesh', type: 'District', available: false },
+      // Andhra Pradesh
+      { name: 'Visakhapatnam', state: 'Andhra Pradesh', type: 'City', available: false, aliases: ['Vizag'] },
+      { name: 'Vijayawada', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Guntur', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Tirupati', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Rajahmundry', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Kakinada', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Eluru', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Ongole', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Anantapur', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Kadapa', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Srikakulam', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Vizianagaram', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Nellore', state: 'Andhra Pradesh', type: 'City', available: false },
+      { name: 'Chittoor', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Prakasam', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Krishna', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'East Godavari', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'West Godavari', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Palnadu', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Bapatla', state: 'Andhra Pradesh', type: 'District', available: false },
+      { name: 'Adoni', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Dhone', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Yemmiganur', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Atmakur', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Allagadda', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Nandikotkur', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Pattikonda', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Banaganapalle', state: 'Andhra Pradesh', type: 'Town', available: false },
+      { name: 'Koilkuntla', state: 'Andhra Pradesh', type: 'Town', available: false },
+      // Telangana
+      { name: 'Hyderabad', state: 'Telangana', type: 'City', available: false },
+      { name: 'Warangal', state: 'Telangana', type: 'City', available: false },
+      { name: 'Nizamabad', state: 'Telangana', type: 'City', available: false },
+      { name: 'Karimnagar', state: 'Telangana', type: 'City', available: false },
+      { name: 'Khammam', state: 'Telangana', type: 'City', available: false },
+      { name: 'Mahbubnagar', state: 'Telangana', type: 'City', available: false },
+      { name: 'Secunderabad', state: 'Telangana', type: 'City', available: false },
+      { name: 'Nalgonda', state: 'Telangana', type: 'District', available: false },
+      { name: 'Medak', state: 'Telangana', type: 'District', available: false },
+      { name: 'Rangareddy', state: 'Telangana', type: 'District', available: false },
+      // Karnataka
+      { name: 'Bangalore', state: 'Karnataka', type: 'City', available: false },
+      { name: 'Mysore', state: 'Karnataka', type: 'City', available: false },
+      { name: 'Hubli', state: 'Karnataka', type: 'City', available: false },
+      { name: 'Mangalore', state: 'Karnataka', type: 'City', available: false },
+      { name: 'Belgaum', state: 'Karnataka', type: 'City', available: false },
+      // Tamil Nadu
+      { name: 'Chennai', state: 'Tamil Nadu', type: 'City', available: false },
+      { name: 'Coimbatore', state: 'Tamil Nadu', type: 'City', available: false },
+      { name: 'Madurai', state: 'Tamil Nadu', type: 'City', available: false },
+      { name: 'Trichy', state: 'Tamil Nadu', type: 'City', available: false },
+      { name: 'Salem', state: 'Tamil Nadu', type: 'City', available: false },
+      { name: 'Tirunelveli', state: 'Tamil Nadu', type: 'City', available: false },
+      // Maharashtra
+      { name: 'Mumbai', state: 'Maharashtra', type: 'City', available: false },
+      { name: 'Pune', state: 'Maharashtra', type: 'City', available: false },
+      { name: 'Nagpur', state: 'Maharashtra', type: 'City', available: false },
+      { name: 'Nashik', state: 'Maharashtra', type: 'City', available: false },
+      // Delhi & NCR
+      { name: 'Delhi', state: 'Delhi', type: 'City', available: false },
+      { name: 'Noida', state: 'Uttar Pradesh', type: 'City', available: false },
+      { name: 'Gurgaon', state: 'Haryana', type: 'City', available: false },
+      // UP
+      { name: 'Lucknow', state: 'Uttar Pradesh', type: 'City', available: false },
+      { name: 'Kanpur', state: 'Uttar Pradesh', type: 'City', available: false },
+      { name: 'Varanasi', state: 'Uttar Pradesh', type: 'City', available: false },
+      { name: 'Agra', state: 'Uttar Pradesh', type: 'City', available: false },
+      // Others
+      { name: 'Kolkata', state: 'West Bengal', type: 'City', available: false },
+      { name: 'Jaipur', state: 'Rajasthan', type: 'City', available: false },
+      { name: 'Ahmedabad', state: 'Gujarat', type: 'City', available: false },
+      { name: 'Surat', state: 'Gujarat', type: 'City', available: false },
+      { name: 'Bhopal', state: 'Madhya Pradesh', type: 'City', available: false },
+      { name: 'Indore', state: 'Madhya Pradesh', type: 'City', available: false },
+      { name: 'Patna', state: 'Bihar', type: 'City', available: false },
+      { name: 'Chandigarh', state: 'Punjab', type: 'City', available: false },
+      { name: 'Kochi', state: 'Kerala', type: 'City', available: false },
+      { name: 'Bhubaneswar', state: 'Odisha', type: 'City', available: false },
+      { name: 'Ranchi', state: 'Jharkhand', type: 'City', available: false },
+      { name: 'Guwahati', state: 'Assam', type: 'City', available: false },
+      { name: 'Dehradun', state: 'Uttarakhand', type: 'City', available: false },
+      { name: 'Shimla', state: 'Himachal Pradesh', type: 'City', available: false },
+    ];
+
+    const cityInput = document.getElementById('cityInput');
+    const suggestionsEl = document.getElementById('suggestions');
+
+    cityInput.addEventListener('input', function() {
+      const query = this.value.trim().toLowerCase();
+      if (query.length < 1) {
+        suggestionsEl.classList.remove('active');
+        return;
+      }
+
+      const matches = locations.filter(loc => {
+        const nameMatch = loc.name.toLowerCase().includes(query);
+        const stateMatch = loc.state.toLowerCase().includes(query);
+        const aliasMatch = loc.aliases ? loc.aliases.some(a => a.toLowerCase().includes(query)) : false;
+        return nameMatch || stateMatch || aliasMatch;
+      }).slice(0, 8);
+
+      if (matches.length === 0) {
+        suggestionsEl.innerHTML = '<div class="suggestion-item" style="justify-content:center;color:#999;cursor:default;">No locations found</div>';
+        suggestionsEl.classList.add('active');
+        return;
+      }
+
+      suggestionsEl.innerHTML = matches.map(loc => `
+        <div class="suggestion-item" data-name="${loc.name}" data-available="${loc.available}">
+          <div class="city-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="city-name">${loc.name}</div>
+            <div class="city-state">${loc.state} · ${loc.type}</div>
+          </div>
+          <span class="badge ${loc.available ? 'live' : 'soon'}">${loc.available ? 'Live' : 'Coming Soon'}</span>
+        </div>
+      `).join('');
+
+      suggestionsEl.classList.add('active');
+
+      suggestionsEl.querySelectorAll('.suggestion-item[data-name]').forEach(item => {
+        item.addEventListener('click', function() {
+          const name = this.dataset.name;
+          const available = this.dataset.available === 'true';
+          cityInput.value = name;
+          suggestionsEl.classList.remove('active');
+          if (available) {
+            window.location.href = `doctors.html?city=${name.toLowerCase()}`;
+          } else {
+            alert(name + ' is coming soon! We will notify you when VYDO launches there.');
+          }
+        });
+      });
+    });
+
+    // Close suggestions on outside click
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.search-wrapper')) {
+        suggestionsEl.classList.remove('active');
+      }
+    });
+
+    // Search button click
+    document.getElementById('searchBtn').addEventListener('click', function() {
+      const val = cityInput.value.trim().toLowerCase();
+      const match = locations.find(l => l.name.toLowerCase() === val);
+      if (match && match.available) {
+        window.location.href = `doctors.html?city=${match.name.toLowerCase()}`;
+      } else if (match) {
+        alert(match.name + ' is coming soon! We will notify you when VYDO launches there.');
+      } else if (val) {
+        alert('Coming soon! VYDO is launching across India.');
+      }
+    });
+
+    cityInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') document.getElementById('searchBtn').click();
+    });
+
+    // Notify form
+    async function handleNotify(e) {
+      e.preventDefault();
+      const email = document.getElementById('notifyEmail').value;
+      try {
+        await fetch('https://formspree.io/f/mzdkvjre', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, source: 'vydo-website' })
+        });
+      } catch(err) {}
+      document.querySelector('.notify-form').style.display = 'none';
+      document.getElementById('notifySuccess').style.display = 'block';
+    }
+
+    // Scroll reveal for specialty cards
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.specialty-card').forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.08) + 's';
+      observer.observe(card);
+    });
+
+    document.querySelectorAll('.why-card').forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.1) + 's';
+      observer.observe(card);
+    });
+
+    document.querySelectorAll('.process-step').forEach((step, i) => {
+      step.style.transitionDelay = (i * 0.12) + 's';
+      observer.observe(step);
+    });
+
+    document.querySelectorAll('.severity-card').forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.15) + 's';
+      observer.observe(card);
+    });
+
+    document.querySelectorAll('.reason-card').forEach((card, i) => {
+      card.style.transitionDelay = (i * 0.12) + 's';
+      observer.observe(card);
+    });
+
+    document.querySelectorAll('.journey-item').forEach((item, i) => {
+      item.style.transitionDelay = (i * 0.1) + 's';
+      observer.observe(item);
+    });
+
+    // Emergency severity single select
+    function pickSeverity(card) {
+      document.querySelectorAll('.emer-card').forEach(c => c.classList.remove('picked'));
+      card.classList.add('picked');
+      document.getElementById('emerAction').classList.add('show');
+    }
+  </script>
+
+</body>
+</html>

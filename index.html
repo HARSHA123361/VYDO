@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VYDO — India's Healthcare App</title>
   <link rel="icon" href="logo.png" type="image/png" />
+  <meta http-equiv="refresh" content="0; url=home.html" />
+  <script>window.location.href = 'home.html';</script>
+</head>
+<body>
+  Redirecting to VYDO...
+</body>
+</html>
+
+<!-- OLD FILE - KEPT FOR REFERENCE - SEE home.html FOR NEW MULTI-PAGE SITE
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --blue: #1A56DB; --dark: #1A237E; --light: #EEF2FF; }
@@ -17,22 +26,81 @@
       overflow-x: hidden;
     }
 
-    /* Doctor Reg Button */
-    .doc-reg-btn { position: fixed; right: 16px; top: 16px; z-index: 100; animation: slideInTop 0.8s 2.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-    .doc-reg-btn a {
-      display: flex; align-items: center; gap: 6px;
-      background: linear-gradient(135deg, #1A237E, #1A56DB);
-      color: #fff; text-decoration: none; font-size: 12px; font-weight: 700;
-      padding: 10px 16px; border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(26,86,219,0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background: #fff; border-bottom: 2px solid #E0E4FF;
+      padding: 12px 24px; position: sticky; top: 0; z-index: 50;
+      box-shadow: 0 2px 12px rgba(26,86,219,0.05);
+      animation: slideDown 0.6s ease forwards;
     }
-    .doc-reg-btn a:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,86,219,0.5); }
-    .doc-reg-pulse { width: 7px; height: 7px; background: #22C55E; border-radius: 50%; animation: dotPulse 1.5s ease-in-out infinite; flex-shrink: 0; }
-    @keyframes slideInTop { 0% { opacity:0; transform:translateY(-30px); } 100% { opacity:1; transform:translateY(0); } }
-    @keyframes dotPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.6); opacity:0.6; } }
+    .nav-container {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; font-weight: 900; font-size: 20px;
+      color: var(--dark); transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      position: relative;
+    }
+    .nav-logo:hover { 
+      transform: scale(1.08);
+      filter: drop-shadow(0 4px 12px rgba(26,86,219,0.2));
+    }
+    .nav-logo img { 
+      width: 40px; height: 40px; object-fit: contain;
+      transition: all 0.3s ease;
+    }
+    .nav-logo:hover img {
+      transform: rotate(5deg) scale(1.1);
+    }
+    .nav-menu {
+      display: flex; gap: 32px; align-items: center; list-style: none;
+      margin: 0; padding: 0;
+    }
+    .nav-item a {
+      text-decoration: none; color: var(--dark); font-size: 14px; font-weight: 600;
+      transition: all 0.3s ease; position: relative;
+    }
+    .nav-item a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--blue);
+      transition: width 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .nav-item a:hover { color: var(--blue); }
+    .nav-item a:hover::after { width: 100%; }
+    .nav-icons {
+      display: flex; gap: 16px; align-items: center;
+    }
+    .nav-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: #EEF2FF; color: var(--blue); cursor: pointer;
+      transition: all 0.3s ease; border: none; font-size: 18px;
+    }
+    .nav-icon:hover {
+      background: var(--blue); color: #fff;
+      transform: translateY(-2px); box-shadow: 0 6px 16px rgba(26,86,219,0.2);
+    }
+    .nav-toggle {
+      display: none; background: none; border: none;
+      font-size: 24px; cursor: pointer; color: var(--dark);
+    }
+    @keyframes slideDown { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
 
-    /* Hero */
+    @media (max-width: 768px) {
+      .nav-menu { 
+        position: absolute; top: 60px; left: 0; right: 0;
+        flex-direction: column; gap: 0; background: #fff;
+        border-bottom: 2px solid #E0E4FF; padding: 16px 24px;
+        display: none;
+      }
+      .nav-menu.active { display: flex; }
+      .nav-item { padding: 8px 0; border-bottom: 1px solid #EEF2FF; }
+      .nav-toggle { display: block; }
+    }
+
+    /* ===== HERO SECTION ===== */
     .hero {
       min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -54,6 +122,7 @@
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 16px;
       animation: logoIn 1s cubic-bezier(0.34,1.56,0.64,1) forwards; opacity: 0;
+      animation-duration: 1.2s; 
     }
     .pulse-ring {
       position: absolute; width: 160px; height: 160px; border-radius: 50%;
@@ -64,39 +133,115 @@
     @keyframes pulse { 0% { transform:scale(0.9); opacity:0.8; } 100% { transform:scale(2.4); opacity:0; } }
     .logo-container img {
       width: 130px; height: 130px; object-fit: contain; position: relative; z-index: 1;
+      animation: logoFloat 3s ease-in-out infinite;
     }
     @keyframes logoIn { 0% { opacity:0; transform:scale(0.4) rotate(-20deg); } 100% { opacity:1; transform:scale(1) rotate(0); } }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
 
     /* Brand */
-    .brand { font-size: clamp(40px,10vw,60px); font-weight: 900; letter-spacing: clamp(8px,3vw,16px); color: #1A237E; animation: fadeUp 0.8s 0.8s ease forwards; opacity: 0; line-height: 1; }
-    .underline { height: 3px; background: linear-gradient(90deg, var(--blue), #4361EE); border-radius: 2px; margin: 10px auto 0; width: 0; animation: lineIn 0.8s 1.4s ease forwards; }
+    .brand { 
+      font-size: clamp(40px,10vw,60px); font-weight: 900; letter-spacing: clamp(8px,3vw,16px); 
+      color: #1A237E; animation: fadeUp 0.8s 0.8s ease forwards; opacity: 0; 
+      line-height: 1;
+    }
+    .underline { 
+      height: 3px; background: linear-gradient(90deg, var(--blue), #4361EE); 
+      border-radius: 2px; margin: 10px auto 0; width: 0; 
+      animation: lineIn 0.8s 1.4s ease forwards;
+      box-shadow: 0 0 20px rgba(26,86,219,0.3);
+    }
     @keyframes lineIn { to { width: min(200px, 60vw); } }
-    .tagline { font-size: clamp(10px,3vw,13px); color: #9CA3AF; letter-spacing: clamp(2px,1vw,4px); font-weight: 600; margin-top: 10px; text-transform: uppercase; animation: fadeUp 0.8s 1.8s ease forwards; opacity: 0; }
+    .tagline { 
+      font-size: clamp(10px,3vw,13px); color: #9CA3AF; letter-spacing: clamp(2px,1vw,4px); 
+      font-weight: 600; margin-top: 10px; text-transform: uppercase; 
+      animation: fadeUp 0.8s 1.8s ease forwards; opacity: 0;
+    }
 
     /* Coming soon */
     .coming { margin-top: 36px; animation: fadeUp 0.8s 2s ease forwards; opacity: 0; }
     .coming h2 { font-size: clamp(22px,6vw,34px); font-weight: 800; line-height: 1.3; }
-    .coming h2 span { background: linear-gradient(135deg, var(--blue), #4361EE); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    .coming p { font-size: clamp(13px,3.5vw,16px); color: #6B7280; margin-top: 12px; line-height: 1.7; max-width: 360px; margin-left: auto; margin-right: auto; word-break: keep-all; overflow-wrap: break-word; }
+    .coming h2 span { 
+      background: linear-gradient(135deg, var(--blue), #4361EE); 
+      -webkit-background-clip: text; background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+    }
+    .coming p { 
+      font-size: clamp(13px,3.5vw,16px); color: #6B7280; margin-top: 12px; 
+      line-height: 1.7; max-width: 360px; margin-left: auto; margin-right: auto; 
+      animation: fadeUp 0.8s 2.4s ease forwards; opacity: 0;
+    }
 
     /* Pills */
     .features { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; animation: fadeUp 0.8s 2.2s ease forwards; opacity: 0; width: 100%; padding: 0 8px; }
-    .pill { background: #fff; color: #1A237E; font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 20px; white-space: nowrap; border: 1.5px solid #C5CAE9; }
+    .pill { 
+      background: #fff; color: #1A237E; font-size: 12px; font-weight: 600; 
+      padding: 8px 14px; border-radius: 20px; white-space: nowrap; 
+      border: 1.5px solid #C5CAE9; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      cursor: pointer; animation: slideInPill 0.6s ease forwards;
+    }
+    .pill:nth-child(1) { animation-delay: 2.4s; opacity: 0; }
+    .pill:nth-child(2) { animation-delay: 2.5s; opacity: 0; }
+    .pill:nth-child(3) { animation-delay: 2.6s; opacity: 0; }
+    .pill:nth-child(4) { animation-delay: 2.7s; opacity: 0; }
+    .pill:hover { 
+      background: linear-gradient(135deg, var(--blue), #4361EE);
+      color: #fff; border-color: var(--blue);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(26,86,219,0.3);
+    }
+    @keyframes slideInPill { 0% { opacity: 0; transform: translateY(20px) scale(0.8); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
     /* Notify */
     .notify { margin-top: 32px; width: 100%; max-width: 400px; animation: fadeUp 0.8s 2.4s ease forwards; opacity: 0; }
     .notify p { font-size: 13px; color: #9CA3AF; margin-bottom: 10px; }
-    .notify-form { display: flex; gap: 8px; }
-    .notify-form input { flex: 1; padding: 13px 16px; border: 1.5px solid #E0E4FF; border-radius: 12px; font-size: 14px; color: #1A1A2E; outline: none; transition: border-color 0.2s; min-width: 0; }
-    .notify-form input:focus { border-color: var(--blue); }
-    .notify-form button { padding: 13px 18px; background: linear-gradient(135deg, #1A237E, #1A56DB); color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: transform 0.15s, box-shadow 0.15s; }
-    .notify-form button:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(26,86,219,0.4); }
-    .success-msg { display: none; color: #059669; font-weight: 700; font-size: 13px; margin-top: 10px; }
+    .notify-form { display: flex; gap: 8px; animation: scaleIn 0.6s 2.5s cubic-bezier(0.34,1.56,0.64,1) forwards; opacity: 0; transform-origin: center; }
+    .notify-form input { 
+      flex: 1; padding: 13px 16px; border: 1.5px solid #E0E4FF; 
+      border-radius: 12px; font-size: 14px; color: #1A1A2E; outline: none; 
+      transition: all 0.3s ease; min-width: 0; background: #fff;
+    }
+    .notify-form input:focus { 
+      border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
+      transform: scale(1.02);
+    }
+    .notify-form button { 
+      padding: 13px 18px; background: linear-gradient(135deg, #1A237E, #1A56DB); 
+      color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; 
+      cursor: pointer; white-space: nowrap; 
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1) !important;
+      position: relative; overflow: hidden;
+    }
+    .notify-form button::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 0; height: 0; background: rgba(255,255,255,0.2);
+      border-radius: 50%; transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .notify-form button:hover::before { width: 300px; height: 300px; }
+    .notify-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,86,219,0.4); }
+    .success-msg { 
+      display: none; color: #059669; font-weight: 700; font-size: 13px; 
+      margin-top: 10px; animation: slideInPill 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes scaleIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 
     /* Socials */
     .socials { display: flex; gap: 12px; justify-content: center; margin-top: 28px; animation: fadeUp 0.8s 2.6s ease forwards; opacity: 0; }
-    .social-link { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 1.5px solid #E0E4FF; background: #fff; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
-    .social-link:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(26,86,219,0.2); border-color: var(--blue); }
+    .social-link { 
+      width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; 
+      justify-content: center; text-decoration: none; border: 1.5px solid #E0E4FF; 
+      background: #fff; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); 
+      animation: bounceIn 0.6s ease forwards;
+    }
+    .social-link:nth-child(1) { animation-delay: 2.7s; opacity: 0; }
+    .social-link:nth-child(2) { animation-delay: 2.8s; opacity: 0; }
+    .social-link:nth-child(3) { animation-delay: 2.9s; opacity: 0; }
+    .social-link:hover { 
+      transform: translateY(-5px) scale(1.15); 
+      box-shadow: 0 8px 24px rgba(26,86,219,0.3); 
+      border-color: var(--blue);
+    }
+    @keyframes bounceIn { 0% { opacity: 0; transform: scale(0) translateY(20px); } 50% { transform: scale(1.1); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 
     /* Footer */
     .footer { margin-top: 20px; font-size: 12px; color: #D1D5DB; animation: fadeUp 0.8s 2.8s ease forwards; opacity: 0; padding-bottom: 32px; }
@@ -104,32 +249,243 @@
 
     @keyframes fadeUp { 0% { opacity:0; transform:translateY(20px); } 100% { opacity:1; transform:translateY(0); } }
 
+    /* Doctor Reg Button */
+    .doc-reg-btn { position: fixed; right: 16px; top: 16px; z-index: 100; animation: slideInTop 0.8s 2.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .doc-reg-btn a {
+      display: flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #1A237E, #1A56DB);
+      color: #fff; text-decoration: none; font-size: 12px; font-weight: 700;
+      padding: 10px 16px; border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(26,86,219,0.4);
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      position: relative; overflow: hidden;
+    }
+    .doc-reg-btn a::before {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%; background: rgba(255,255,255,0.2);
+      transition: left 0.5s ease;
+    }
+    .doc-reg-btn a:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 10px 28px rgba(26,86,219,0.5);
+    }
+    .doc-reg-btn a:hover::before { left: 100%; }
+    .doc-reg-pulse { 
+      width: 7px; height: 7px; background: #22C55E; border-radius: 50%; 
+      animation: dotPulse 1.5s ease-in-out infinite; flex-shrink: 0; 
+    }
+    @keyframes slideInTop { 0% { opacity:0; transform:translateY(-30px); } 100% { opacity:1; transform:translateY(0); } }
+    @keyframes dotPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.6); opacity:0.6; } }
+
+    /* ===== AUTO-MOVING DOCTORS BAR ===== */
+    .doctors-bar {
+      width: 100%; background: linear-gradient(135deg, var(--blue), #4361EE);
+      color: #fff; padding: 16px 0; overflow: hidden; position: relative;
+      box-shadow: 0 4px 20px rgba(26,86,219,0.2);
+    }
+    .doctors-carousel {
+      display: flex; gap: 20px; animation: scroll 30s linear infinite;
+      white-space: nowrap; padding: 0 20px;
+    }
+    .doctor-card {
+      display: flex; align-items: center; gap: 12px; padding: 8px 16px;
+      background: rgba(255,255,255,0.1); border-radius: 20px; flex-shrink: 0;
+      backdrop-filter: blur(10px); transition: all 0.3s ease;
+    }
+    .doctor-card:hover {
+      background: rgba(255,255,255,0.2); transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255,255,255,0.2);
+    }
+    .doctor-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); display: flex; align-items: center;
+      justify-content: center; font-weight: 700; font-size: 14px;
+    }
+    .doctor-info { font-size: 13px; font-weight: 600; }
+    .doctor-rating { font-size: 11px; color: #FFD700; opacity: 0.9; }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+    /* ===== OPTIONS SECTION ===== */
+    .options-section {
+      padding: 60px 24px; background: #fff;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px; max-width: 1200px; margin: 0 auto;
+    }
+    .option-card {
+      background: linear-gradient(135deg, #EEF2FF, #fff);
+      border: 2px solid #E0E4FF; border-radius: 20px; padding: 32px 24px;
+      text-align: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      animation: slideUp 0.6s ease forwards;
+    }
+    .option-card:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
+    .option-card:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
+    .option-card:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
+    .option-card:hover {
+      border-color: var(--blue); background: linear-gradient(135deg, #fff, #EEF2FF);
+      transform: translateY(-8px); box-shadow: 0 12px 40px rgba(26,86,219,0.15);
+    }
+    .option-icon {
+      font-size: 48px; margin-bottom: 16px; animation: bounce 2s ease-in-out infinite;
+    }
+    .option-card:nth-child(1) .option-icon { animation-delay: 0s; }
+    .option-card:nth-child(2) .option-icon { animation-delay: 0.3s; }
+    .option-card:nth-child(3) .option-icon { animation-delay: 0.6s; }
+    .option-card h3 { font-size: 20px; margin-bottom: 8px; color: var(--dark); }
+    .option-card p { font-size: 14px; color: #6B7280; line-height: 1.6; }
+    @keyframes slideUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+    /* ===== ABOUT VYDO ===== */
+    .about-section {
+      padding: 80px 24px; background: linear-gradient(160deg, #fff 0%, #EEF2FF 100%);
+      text-align: center;
+    }
+    .section-title {
+      font-size: clamp(28px, 8vw, 48px); font-weight: 800; margin-bottom: 20px;
+      color: var(--dark); position: relative; display: inline-block;
+    }
+    .section-title::after {
+      content: ''; position: absolute; bottom: -10px; left: 50%;
+      transform: translateX(-50%); width: 60px; height: 4px;
+      background: linear-gradient(90deg, var(--blue), #4361EE);
+      border-radius: 2px;
+    }
+    .section-subtitle {
+      font-size: 16px; color: #6B7280; max-width: 600px;
+      margin: 40px auto 0; line-height: 1.8; animation: fadeUp 0.8s 0.3s ease forwards;
+    }
+
+    /* ===== TRUST SECTION ===== */
+    .trust-section {
+      padding: 80px 24px; background: #fff;
+    }
+    .trust-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px; max-width: 1200px; margin: 0 auto; margin-top: 40px;
+    }
+    .trust-card {
+      background: linear-gradient(135deg, #EEF2FF, #fff);
+      border: 2px solid #E0E4FF; border-radius: 16px; padding: 24px;
+      text-align: center; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      animation: scaleIn 0.6s ease forwards;
+    }
+    .trust-card:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
+    .trust-card:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
+    .trust-card:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
+    .trust-card:nth-child(4) { animation-delay: 0.4s; opacity: 0; }
+    .trust-card:hover {
+      border-color: var(--blue); background: linear-gradient(135deg, #fff, #EEF2FF);
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 12px 40px rgba(26,86,219,0.15);
+    }
+    .trust-icon { font-size: 40px; margin-bottom: 12px; }
+    .trust-card h4 { font-size: 16px; margin-bottom: 8px; color: var(--dark); font-weight: 700; }
+    .trust-card p { font-size: 13px; color: #6B7280; line-height: 1.6; }
+    @keyframes scaleIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+
+    /* ===== BENEFITS SECTION ===== */
+    .benefits-section {
+      padding: 80px 24px; background: linear-gradient(160deg, #EEF2FF, #fff);
+    }
+    .benefits-list {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px; max-width: 1200px; margin: 0 auto; margin-top: 40px;
+    }
+    .benefit-item {
+      display: flex; gap: 16px; animation: slideUp 0.6s ease forwards;
+    }
+    .benefit-item:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
+    .benefit-item:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
+    .benefit-item:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
+    .benefit-item:nth-child(4) { animation-delay: 0.4s; opacity: 0; }
+    .benefit-item:nth-child(5) { animation-delay: 0.5s; opacity: 0; }
+    .benefit-item:nth-child(6) { animation-delay: 0.6s; opacity: 0; }
+    .benefit-icon {
+      width: 50px; height: 50px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), #4361EE);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 24px; flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .benefit-item:hover .benefit-icon {
+      transform: rotate(10deg) scale(1.1);
+    }
+    .benefit-text h4 { font-size: 16px; margin-bottom: 6px; color: var(--dark); font-weight: 700; }
+    .benefit-text p { font-size: 13px; color: #6B7280; line-height: 1.6; }
+
+    /* ===== REVIEWS SECTION ===== */
+    .reviews-section {
+      padding: 80px 24px; background: #fff;
+    }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; max-width: 1200px; margin: 0 auto; margin-top: 40px;
+    }
+    .review-card {
+      background: linear-gradient(135deg, #EEF2FF, #fff);
+      border: 2px solid #E0E4FF; border-radius: 16px; padding: 28px;
+      transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      animation: slideUp 0.6s ease forwards;
+    }
+    .review-card:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
+    .review-card:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
+    .review-card:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
+    .review-card:hover {
+      border-color: var(--blue); background: linear-gradient(135deg, #fff, #EEF2FF);
+      transform: translateY(-8px); box-shadow: 0 12px 40px rgba(26,86,219,0.15);
+    }
+    .review-stars { color: #FFD700; font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+    .review-text { font-size: 14px; color: #4B5563; line-height: 1.8; margin-bottom: 16px; font-style: italic; }
+    .review-author { font-size: 13px; font-weight: 700; color: var(--dark); }
+    .review-role { font-size: 12px; color: #9CA3AF; }
+
+    @media (max-width: 768px) {
+      .options-section { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .benefits-list { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .doctor-card { padding: 6px 12px; font-size: 12px; }
+    }
+
     @media (max-width: 480px) {
-      .hero { padding: 60px 20px 24px; justify-content: center; }
-      .logo-container { width: 90px; height: 90px; margin-bottom: 10px; }
-      .pulse-ring { width: 90px; height: 90px; }
-      .logo-container img { width: 70px; height: 70px; }
-      .brand { font-size: 36px; letter-spacing: 8px; }
-      .underline { margin-top: 6px; }
-      .tagline { font-size: 9px; letter-spacing: 2px; margin-top: 6px; }
-      .coming { margin-top: 16px; }
-      .coming h2 { font-size: 18px; }
-      .coming p { font-size: 12px; margin-top: 6px; }
-      .features { margin-top: 14px; gap: 6px; }
-      .pill { font-size: 11px; padding: 6px 10px; }
-      .notify { margin-top: 16px; }
-      .notify p { font-size: 12px; margin-bottom: 8px; }
-      .notify-form { flex-direction: column; gap: 8px; }
-      .notify-form input { padding: 11px 14px; font-size: 13px; }
-      .notify-form button { width: 100%; padding: 11px; }
-      .socials { margin-top: 16px; }
-      .footer { margin-top: 12px; padding-bottom: 16px; }
-      .doc-reg-btn a { font-size: 11px; padding: 8px 12px; }
+      .hero { padding: 60px 20px 24px; }
+      .about-section { padding: 60px 20px; }
+      .trust-section { padding: 60px 20px; }
+      .benefits-section { padding: 60px 20px; }
+      .reviews-section { padding: 60px 20px; }
+      .options-section { padding: 40px 20px; }
+      .section-subtitle { font-size: 14px; }
+      .trust-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="nav-logo" href="#home">
+        <img src="logo.png" alt="VYDO" />
+        <span>VYDO</span>
+      </a>
+      <menu class="nav-menu" id="navMenu">
+        <li class="nav-item"><a href="#home">Home</a></li>
+        <li class="nav-item"><a href="#features">Features</a></li>
+        <li class="nav-item"><a href="#about">About</a></li>
+        <li class="nav-item"><a href="#benefits">Benefits</a></li>
+        <li class="nav-item"><a href="#reviews">Reviews</a></li>
+        <li class="nav-item"><a href="#contact">Contact</a></li>
+      </menu>
+      <div class="nav-icons">
+        <button class="nav-icon" title="Search">🔍</button>
+        <button class="nav-icon" title="Account">👤</button>
+        <button class="nav-icon" title="Menu">⋮</button>
+      </div>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <!-- Doctor Registration Button -->
   <div class="doc-reg-btn">
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdrmFIPjU5awzahdXnUjDFBU5aNC-0VtcM85-tBI6bFbL-tEg/viewform" target="_blank" rel="noopener">
       <div class="doc-reg-pulse"></div>
@@ -137,74 +493,210 @@
     </a>
   </div>
 
-  <div class="hero">
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
-    <div class="blob blob3"></div>
+  </div>
 
-    <div class="logo-container">
-      <div class="pulse-ring"></div>
-      <div class="pulse-ring"></div>
-      <div class="pulse-ring"></div>
-      <img src="logo.png" alt="VYDO" />
+  <!-- ===== AUTO-MOVING DOCTORS BAR ===== -->
+  <div class="doctors-bar">
+    <div class="doctors-carousel">
+      <div class="doctor-card">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div>
+          <div class="doctor-info">Dr. Rajesh Kumar</div>
+          <div class="doctor-rating">⭐ 4.8 (120 reviews)</div>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div>
+          <div class="doctor-info">Dr. Priya Singh</div>
+          <div class="doctor-rating">⭐ 4.9 (150 reviews)</div>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div>
+          <div class="doctor-info">Dr. Amit Patel</div>
+          <div class="doctor-rating">⭐ 4.7 (98 reviews)</div>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div>
+          <div class="doctor-info">Dr. Neha Gupta</div>
+          <div class="doctor-rating">⭐ 4.9 (200 reviews)</div>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div>
+          <div class="doctor-info">Dr. Sanjay Verma</div>
+          <div class="doctor-rating">⭐ 4.8 (110 reviews)</div>
+        </div>
+      </div>
+      <!-- Duplicate for smooth infinite scroll -->
+      <div class="doctor-card">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div>
+          <div class="doctor-info">Dr. Rajesh Kumar</div>
+          <div class="doctor-rating">⭐ 4.8 (120 reviews)</div>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div>
+          <div class="doctor-info">Dr. Priya Singh</div>
+          <div class="doctor-rating">⭐ 4.9 (150 reviews)</div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="brand">VYDO</div>
-    <div class="underline"></div>
-    <div class="tagline">India's Healthcare App</div>
-
-    <div class="coming">
-      <h2>We're <span>Coming Soon</span> 🚀</h2>
-      <p>Connecting patients with verified doctors for physical &amp; video consultations. Something amazing is on the way.</p>
+  <!-- ===== OPTIONS SECTION (Location, Doctor, Appointment) ===== -->
+  <div class="options-section" id="features">
+    <div class="option-card">
+      <div class="option-icon">📍</div>
+      <h3>Find by Location</h3>
+      <p>Search doctors in your area and get instant appointments at nearby clinics</p>
     </div>
-
-    <div class="features">
-      <span class="pill">Book Appointments</span>
-      <span class="pill">Video Consultations</span>
-      <span class="pill">Emergency Care</span>
-      <span class="pill">AI Health Assistant</span>
+    <div class="option-card">
+      <div class="option-icon">👨‍⚕️</div>
+      <h3>Browse Doctors</h3>
+      <p>Verified specialists with ratings, experiences, and patient reviews</p>
     </div>
-
-    <div class="notify">
-      <p>Get notified when we launch</p>
-      <form class="notify-form" onsubmit="handleNotify(event)">
-        <input type="email" id="emailInput" placeholder="Enter your email" required />
-        <button type="submit">Notify Me</button>
-      </form>
-      <div class="success-msg" id="successMsg">You're on the list! 🎉</div>
+    <div class="option-card">
+      <div class="option-icon">📅</div>
+      <h3>Quick Appointment</h3>
+      <p>Book instant slots for physical visits or video consultations</p>
     </div>
+  </div>
 
-    <div class="socials">
-      <a class="social-link" href="https://www.instagram.com/vydo.in?igsh=Ym5lOTI2MjQ0dGo4" target="_blank" rel="noopener" title="Instagram">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <defs><linearGradient id="ig" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#f09433"/><stop offset="50%" stop-color="#dc2743"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
-          <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig)" stroke-width="2"/>
-          <circle cx="12" cy="12" r="4" stroke="url(#ig)" stroke-width="2"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="#dc2743"/>
-        </svg>
-      </a>
-      <a class="social-link" href="https://www.youtube.com/@vydoindia?si=pjuJJDPkUz3eJkPQ" target="_blank" rel="noopener" title="YouTube">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="5" width="20" height="14" rx="4" fill="#FF0000"/>
-          <polygon points="10,8.5 10,15.5 16,12" fill="#fff"/>
-        </svg>
-      </a>
-      <a class="social-link" href="https://www.linkedin.com/company/vydoindia/" target="_blank" rel="noopener" title="LinkedIn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="2" width="20" height="20" rx="4" fill="#0A66C2"/>
-          <rect x="6" y="10" width="2.5" height="8" fill="#fff"/>
-          <circle cx="7.25" cy="7.25" r="1.5" fill="#fff"/>
-          <path d="M11 10h2.5v1.5c.5-1 1.5-1.5 2.5-1.5 2 0 3 1.2 3 3.5V18h-2.5v-4c0-1-.4-1.5-1.2-1.5s-1.3.5-1.3 1.5V18H11V10z" fill="#fff"/>
-        </svg>
-      </a>
+  <!-- ===== ABOUT VYDO ===== -->
+  <div class="about-section" id="about">
+    <h2 class="section-title">About VYDO</h2>
+    <p class="section-subtitle">
+      VYDO is revolutionizing healthcare in India by connecting patients with verified, qualified doctors. 
+      We believe healthcare should be accessible, affordable, and convenient for everyone. Our mission is to 
+      bridge the gap between patients and quality medical care through technology.
+    </p>
+  </div>
+
+  <!-- ===== WHY TRUST VYDO ===== -->
+  <div class="trust-section">
+    <h2 class="section-title">Why Trust VYDO?</h2>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-icon">✓</div>
+        <h4>Verified Doctors</h4>
+        <p>All doctors are verified with proper credentials and licenses</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">🔒</div>
+        <h4>Data Security</h4>
+        <p>Your medical records are encrypted and HIPAA compliant</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">⚡</div>
+        <h4>24/7 Support</h4>
+        <p>Round the clock customer support for your queries</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">💰</div>
+        <h4>Affordable Rates</h4>
+        <p>Transparent pricing with no hidden charges</p>
+      </div>
     </div>
+  </div>
 
-    <div class="footer">
-      © 2026 VYDO · <a href="mailto:contact@vydo.in">contact@vydo.in</a>
+  <!-- ===== BENEFITS ===== -->
+  <div class="benefits-section" id="benefits">
+    <h2 class="section-title">Our Benefits</h2>
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <div class="benefit-icon">⏱️</div>
+        <div class="benefit-text">
+          <h4>Save Time</h4>
+          <p>No waiting in queues. Book and consult from home</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">💵</div>
+        <div class="benefit-text">
+          <h4>Reduce Costs</h4>
+          <p>Affordable consultations starting from Rs. 299</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📱</div>
+        <div class="benefit-text">
+          <h4>Digital Health Records</h4>
+          <p>Keep all medical history in one secure place</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🏥</div>
+        <div class="benefit-text">
+          <h4>Connect with Specialists</h4>
+          <p>Find specialized doctors for any health concern</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🎯</div>
+        <div class="benefit-text">
+          <h4>Prescription Management</h4>
+          <p>Digital prescriptions and medicine delivery options</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🤝</div>
+        <div class="benefit-text">
+          <h4>Community Support</h4>
+          <p>Connect with patients and share health experiences</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REVIEWS ===== -->
+  <div class="reviews-section" id="reviews">
+    <h2 class="section-title">Patient Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">"VYDO made it so easy to find a doctor. The video consultation was smooth and professional."</div>
+        <div class="review-author">Rajesh Deshmukh</div>
+        <div class="review-role">Patient</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">"Finally, quality healthcare without the hassle. Highly recommended for everyone!"</div>
+        <div class="review-author">Priya Sharma</div>
+        <div class="review-role">Patient</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">"The app is user-friendly and the doctors are highly qualified. Great experience!"</div>
+        <div class="review-author">Amit Kumar</div>
+        <div class="review-role">Patient</div>
+      </div>
     </div>
   </div>
 
   <script>
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Close menu when link is clicked
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+
     async function handleNotify(e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
@@ -220,6 +712,13 @@
         }
       } catch { alert('Something went wrong. Please try again.'); }
     }
+
+    // Smooth scroll animation on page load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('section').forEach((el, idx) => {
+        el.style.animation = `fadeUp 0.8s ${0.2 * (idx + 1)}s ease forwards`;
+      });
+    });
   </script>
 </body>
 </html>

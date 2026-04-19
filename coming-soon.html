@@ -253,6 +253,16 @@
       }
     };
 
+    // Handle city page
+    if (page === 'city') {
+      const city = params.get('city') || 'Your City';
+      pages.city = {
+        title: `Hey ${city}!`,
+        name: 'We\'re Coming Soon!',
+        desc: `VYDO is launching in ${city} very soon. Be the first to book doctors, get emergency care, and access health tips in ${city}.`
+      };
+    }
+
     const data = pages[page] || pages.feature;
     document.getElementById('comingTitle').textContent = data.title;
     document.getElementById('featureName').textContent = data.name;

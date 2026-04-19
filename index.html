@@ -1487,6 +1487,11 @@
         transform: none;
         justify-content: center;
       }
+      .nav-menu li:nth-child(1),
+      .nav-menu li:nth-child(2),
+      .nav-menu li:nth-child(3) {
+        display: none;
+      }
       .nav-menu a {
         padding: 5px 10px;
         font-size: 11px;
@@ -1498,14 +1503,14 @@
       }
       .nav-btn {
         width: auto;
-        padding: 5px 10px;
-        font-size: 11px;
+        padding: 6px 14px;
+        font-size: 12px;
         margin-top: 0;
-        border-radius: 6px;
+        border-radius: 8px;
       }
       .nav-btn.doc-reg {
-        padding: 5px 10px;
-        font-size: 11px;
+        padding: 6px 14px;
+        font-size: 12px;
       }
 
       /* Hero */
@@ -1515,7 +1520,8 @@
         min-height: auto;
         gap: 16px;
       }
-      .hero h1 { font-size: 28px; }
+      .hero h1 { font-size: 26px; }
+      .hero h1 br { display: none; }
       .hero .tagline { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 12px; }
       .search-wrapper { max-width: 100%; }
       .search-section { padding: 6px 10px; border-radius: 10px; gap: 6px; border-width: 1.5px; }

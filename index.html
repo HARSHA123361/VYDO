@@ -1466,8 +1466,10 @@
     /* ===== RESPONSIVE: MOBILE (max 768px) ===== */
     @media (max-width: 768px) {
       /* Navbar */
-      .nav-toggle { display: none !important; }
-      .nav-overlay { display: none !important; }
+      .nav-logo img { width: 44px; height: 44px; display: none; }
+      .nav-logo { display: none; }
+      .navbar { padding: 6px 12px; border-bottom: none; box-shadow: none; }
+      .nav-container { justify-content: center; }
       .nav-menu {
         display: flex !important;
         position: relative;
@@ -1477,17 +1479,13 @@
         background: none;
         flex-direction: row;
         flex-wrap: wrap;
-        padding: 6px 0 0;
+        padding: 4px 0;
         gap: 6px;
         box-shadow: none;
         border-top: none;
         z-index: auto;
         transform: none;
         justify-content: center;
-      }
-      .nav-container {
-        flex-wrap: wrap;
-        gap: 0;
       }
       .nav-menu a {
         padding: 5px 10px;
@@ -1509,18 +1507,16 @@
         padding: 5px 10px;
         font-size: 11px;
       }
-      .nav-logo img { width: 44px; height: 44px; }
-      .navbar { padding: 6px 12px; }
 
       /* Hero */
       .hero {
         grid-template-columns: 1fr;
-        padding: 24px 16px 32px;
+        padding: 16px 16px 24px;
         min-height: auto;
-        gap: 24px;
+        gap: 16px;
       }
-      .hero h1 { font-size: 32px; }
-      .hero .tagline { font-size: 12px; letter-spacing: 1.5px; margin-bottom: 20px; }
+      .hero h1 { font-size: 28px; }
+      .hero .tagline { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 12px; }
       .search-wrapper { max-width: 100%; }
       .search-section { padding: 6px 10px; border-radius: 10px; gap: 6px; border-width: 1.5px; }
       .search-section svg { width: 16px; height: 16px; }

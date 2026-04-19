@@ -17,6 +17,16 @@
       background: #1A56DB;
       color: #fff;
     }
+
+    img {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
     
     @keyframes slideInDown {
       from { opacity: 0; transform: translateY(-20px); }
@@ -2188,8 +2198,8 @@
     const cityInput = document.getElementById('cityInput');
     const suggestionsEl = document.getElementById('suggestions');
 
-    cityInput.addEventListener('input', function() {
-      const query = this.value.trim().toLowerCase();
+    function showSuggestions() {
+      const query = cityInput.value.trim().toLowerCase();
       if (query.length < 1) {
         suggestionsEl.classList.remove('active');
         return;
@@ -2209,7 +2219,7 @@
       }
 
       suggestionsEl.innerHTML = matches.map(loc => `
-        <div class="suggestion-item" data-name="${loc.name}" data-available="${loc.available}">
+        <div class="suggestion-item" data-name="${loc.name}">
           <div class="city-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
@@ -2217,32 +2227,28 @@
             <div class="city-name">${loc.name}</div>
             <div class="city-state">${loc.state} · ${loc.type}</div>
           </div>
-          <span class="badge ${loc.available ? 'live' : 'soon'}">${loc.available ? 'Live' : 'Coming Soon'}</span>
+          <span class="badge soon">Coming Soon</span>
         </div>
       `).join('');
 
       suggestionsEl.classList.add('active');
 
       suggestionsEl.querySelectorAll('.suggestion-item[data-name]').forEach(item => {
-        item.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const name = this.dataset.name;
-          cityInput.value = name;
-          suggestionsEl.classList.remove('active');
-          window.location.href = `coming-soon.html?page=city&city=${encodeURIComponent(name)}`;
-        });
-        item.addEventListener('touchend', function(e) {
+        item.onmousedown = function(e) {
           e.preventDefault();
           const name = this.dataset.name;
           cityInput.value = name;
           suggestionsEl.classList.remove('active');
           window.location.href = `coming-soon.html?page=city&city=${encodeURIComponent(name)}`;
-        });
+        };
       });
-    });
+    }
 
-    // Close suggestions on outside click
+    cityInput.addEventListener('input', showSuggestions);
+    cityInput.addEventListener('keyup', showSuggestions);
+    cityInput.addEventListener('focus', function() { if (this.value.trim()) showSuggestions(); });
+
+    // Close suggestions on outside click/touch
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.search-wrapper')) {
         suggestionsEl.classList.remove('active');

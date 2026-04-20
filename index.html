@@ -221,6 +221,25 @@
       display: none;
     }
 
+    .hero-mobile-top {
+      display: none;
+    }
+
+    .mobile-nav-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #1A56DB, #1246C0);
+      color: #fff;
+    }
+
+    .mobile-doc-btn {
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+
     .hero p {
       font-size: 18px;
       margin-bottom: 12px;
@@ -1491,8 +1510,8 @@
       /* Navbar */
       .nav-logo img { width: 44px; height: 44px; display: none; }
       .nav-logo { display: none; }
-      .navbar { padding: 6px 12px; border-bottom: none; box-shadow: none; }
-      .nav-container { justify-content: center; }
+      .navbar { padding: 0; border-bottom: none; box-shadow: none; display: none; }
+      .nav-container { display: none; }
       .nav-menu {
         display: flex !important;
         position: relative;
@@ -1545,11 +1564,23 @@
       }
       .hero h1 { display: none; }
       .hero h1 br { display: none; }
+      .hero-mobile-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
       .hero-mobile-logo {
         display: block;
-        width: 140px;
+        width: 100px;
         height: auto;
-        margin-bottom: 4px;
+        flex-shrink: 0;
+      }
+      .hero-mobile-btns {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
       }
       .hero .tagline { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 12px; margin-top: 0; }
       .search-wrapper { max-width: 100%; }
@@ -1718,7 +1749,13 @@
   <div class="hero">
     <div class="hero-content">
       <h1>Your Health,<br>Our Priority</h1>
-      <img src="vydo-logo.png" alt="VYDO" class="hero-mobile-logo" />
+      <div class="hero-mobile-top">
+        <img src="vydo-logo.png" alt="VYDO" class="hero-mobile-logo" />
+        <div class="hero-mobile-btns">
+          <button class="mobile-nav-btn" onclick="window.location.href='coming-soon.html?page=download'">Download App</button>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdrmFIPjU5awzahdXnUjDFBU5aNC-0VtcM85-tBI6bFbL-tEg/viewform" target="_blank" rel="noopener"><button class="mobile-nav-btn mobile-doc-btn">Doctor Registration</button></a>
+        </div>
+      </div>
       <p class="tagline">India's Doctor Booking</p>
 
       <div class="search-wrapper">

@@ -222,7 +222,12 @@
     }
 
     .hero h1 {
-      display: none;
+      font-size: 60px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: #1A56DB;
     }
 
     .hero-mobile-logo {
@@ -230,17 +235,7 @@
     }
 
     .hero-mobile-top {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 12px;
-    }
-
-    .hero-desktop-logo {
-      display: block;
-      width: 320px;
-      height: auto;
-      margin-bottom: 8px;
+      display: none;
     }
 
     .mobile-nav-btn {
@@ -1582,24 +1577,17 @@
       }
       .hero h1 { display: none; }
       .hero h1 br { display: none; }
-      .hero-desktop-logo { display: none; }
       .hero-mobile-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
+        display: block;
         margin-bottom: 6px;
       }
       .hero-mobile-logo {
         display: block;
-        width: 100px;
+        width: 140px;
         height: auto;
-        flex-shrink: 0;
       }
       .hero-mobile-btns {
-        display: flex;
-        gap: 6px;
-        flex-shrink: 0;
+        display: none;
       }
       .hero .tagline { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 12px; margin-top: 0; }
       .search-wrapper { max-width: 100%; }
@@ -1768,7 +1756,6 @@
   <div class="hero">
     <div class="hero-content">
       <h1>Your Health,<br>Our Priority</h1>
-      <img src="vydo-logo.png" alt="VYDO" class="hero-desktop-logo" />
       <div class="hero-mobile-top">
         <img src="vydo-logo.png" alt="VYDO" class="hero-mobile-logo" />
         <div class="hero-mobile-btns">

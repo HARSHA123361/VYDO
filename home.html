@@ -1577,18 +1577,22 @@
       .hero h1 { display: none; }
       .hero h1 br { display: none; }
       .hero-mobile-top {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
         margin-bottom: 6px;
       }
       .hero-mobile-logo {
         display: block;
-        width: 140px;
+        width: 120px;
         height: auto;
+        flex-shrink: 0;
       }
       .hero-mobile-btns {
         display: flex;
         gap: 6px;
-        margin-top: 8px;
+        flex-shrink: 0;
       }
       .hero .tagline { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 12px; margin-top: 0; }
       .search-wrapper { max-width: 100%; }

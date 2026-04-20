@@ -217,6 +217,10 @@
       color: #1A56DB;
     }
 
+    .hero-mobile-logo {
+      display: none;
+    }
+
     .hero p {
       font-size: 18px;
       margin-bottom: 12px;
@@ -1538,8 +1542,14 @@
         min-height: auto;
         gap: 16px;
       }
-      .hero h1 { font-size: 26px; }
+      .hero h1 { display: none; }
       .hero h1 br { display: none; }
+      .hero-mobile-logo {
+        display: block;
+        width: 140px;
+        height: auto;
+        margin-bottom: 8px;
+      }
       .hero .tagline { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 12px; }
       .search-wrapper { max-width: 100%; }
       .search-section { padding: 6px 10px; border-radius: 10px; gap: 6px; border-width: 1.5px; }
@@ -1604,7 +1614,8 @@
 
     /* ===== RESPONSIVE: SMALL MOBILE (max 480px) ===== */
     @media (max-width: 480px) {
-      .hero h1 { font-size: 26px; }
+      .hero h1 { display: none; }
+      .hero-mobile-logo { width: 120px; }
       .hero .tagline { font-size: 11px; }
       .hero { padding: 20px 12px 24px; }
       .search-section { padding: 10px 14px; }
@@ -1706,6 +1717,7 @@
   <div class="hero">
     <div class="hero-content">
       <h1>Your Health,<br>Our Priority</h1>
+      <img src="logo-blue.png" alt="VYDO" class="hero-mobile-logo" />
       <p class="tagline">India's Doctor Booking</p>
 
       <div class="search-wrapper">
